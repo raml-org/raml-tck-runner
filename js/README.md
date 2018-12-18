@@ -8,12 +8,17 @@ Uses [raml-tck](https://github.com/raml-org/raml-tck/tree/master/tests/raml-1.0)
 
 NOTE: If file name contains "invalid" parsing of it is expected to fail.
 
-## Install & run
+## Install
 
 ```sh
 $ git clone git@github.com:postatum/raml-parsers-test.git
 $ cd raml-parsers-test/js
 $ npm install
+```
+
+## Run
+
+```sh
 $ node src/index.js --parser PARSER_NAME
 ```
 

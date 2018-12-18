@@ -15,6 +15,11 @@ $ git clone git@github.com:postatum/raml-parsers-test.git
 $ mkdir -p $GOPATH/src/github.com/postatum/raml-parsers-test-go
 $ ln -s ./raml-parsers-test/go $GOPATH/src/github.com/postatum/raml-parsers-test-go
 $ cd $GOPATH/src/github.com/postatum/raml-parsers-test-go
+```
+
+## Run
+
+```sh
 $ go run *.go -parser PARSER_NAME
 ```
 
@@ -23,7 +28,7 @@ $ go run *.go -parser PARSER_NAME
 Help:
 
 ```sh
-$ raml-parsers-test-go -h
+$ go run *.go -h
 ```
 
 Parser (defaults to `jumpscale`):
