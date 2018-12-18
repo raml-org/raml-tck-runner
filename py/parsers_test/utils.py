@@ -21,19 +21,19 @@ def parse_args():
 
 
 def clone_tck_repo():
-    # repo_dir = os.path.join(tempfile.gettempdir(), 'raml-tck')
-    # if os.path.exists(repo_dir):
-    #     print('Removing existing raml-tck repo directory')
-    #     shutil.rmtree(repo_dir)
-    # os.mkdir(repo_dir)
-    # print('Cloning raml-tck repo to {}'.format(repo_dir))
-    # repo = Repo.init(repo_dir)
-    # origin = repo.create_remote(
-    #     'origin', 'git@github.com:raml-org/raml-tck.git')
-    # origin.fetch('refs/heads/rename-cleanup:refs/heads/origin')
-    # origin.pull(origin.refs[0].remote_head)
-    # return os.path.join(repo_dir, 'tests', 'raml-1.0')
-    return '/home/post/projects/raml-tck/tests/raml-1.0/'  # DEBUG
+    repo_dir = os.path.join(tempfile.gettempdir(), 'raml-tck')
+    if os.path.exists(repo_dir):
+        print('Removing existing raml-tck repo directory')
+        shutil.rmtree(repo_dir)
+    os.mkdir(repo_dir)
+    print('Cloning raml-tck repo to {}'.format(repo_dir))
+    repo = Repo.init(repo_dir)
+    origin = repo.create_remote(
+        'origin', 'git@github.com:raml-org/raml-tck.git')
+    origin.fetch('refs/heads/rename-cleanup:refs/heads/origin')
+    origin.pull(origin.refs[0].remote_head)
+    return os.path.join(repo_dir, 'tests', 'raml-1.0')
+    # return '/home/post/projects/raml-tck/tests/raml-1.0/'  # DEBUG
 
 def list_ramls(ex_dir):
     manifest_path = os.path.join(ex_dir, 'manifest.json')

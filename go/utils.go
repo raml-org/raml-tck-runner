@@ -36,18 +36,18 @@ func ListRamls(folderPath string) ([]string, error) {
 
 // CloneTckRepo clones raml-tck repo and returns cloned repo path
 func CloneTckRepo() string {
-	// targetDir := fmt.Sprintf("%s/raml-tck", os.TempDir())
-	// _ = os.RemoveAll(targetDir)
-	// fmt.Printf("Cloning raml-tc repo to %s\n", targetDir)
-	// gitRepo := "git@github.com:raml-org/raml-tck.git"
-	// cmd := exec.Command(
-	// 	"git", "clone", "-b", "rename-cleanup", gitRepo, targetDir)
-	// err := cmd.Run()
-	// if err != nil {
-	// 	panic(fmt.Sprintf("Failed to clone repo %s", gitRepo))
-	// }
-	// return fmt.Sprintf("%s/tests/raml-1.0", targetDir)
-	return "/home/post/projects/raml-tck/tests/raml-1.0/"  // DEBUG
+	targetDir := fmt.Sprintf("%s/raml-tck", os.TempDir())
+	_ = os.RemoveAll(targetDir)
+	fmt.Printf("Cloning raml-tc repo to %s\n", targetDir)
+	gitRepo := "git@github.com:raml-org/raml-tck.git"
+	cmd := exec.Command(
+		"git", "clone", "-b", "rename-cleanup", gitRepo, targetDir)
+	err := cmd.Run()
+	if err != nil {
+		panic(fmt.Sprintf("Failed to clone repo %s", gitRepo))
+	}
+	return fmt.Sprintf("%s/tests/raml-1.0", targetDir)
+	// return "/home/post/projects/raml-tck/tests/raml-1.0/"  // DEBUG
 }
 
 // ShouldFail reports whether parsing of RAML file should fail
