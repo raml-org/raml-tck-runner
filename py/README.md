@@ -11,8 +11,8 @@ NOTE: If file name contains "invalid" parsing of it is expected to fail.
 ## Install & run
 
 ```sh
-$ git clone git@github.com:postatum/raml-parsers-test-py.git
-$ cd raml-parsers-test-py
+$ git clone git@github.com:postatum/raml-parsers-test.git
+$ cd raml-parsers-test/py
 $ pip install -r requirements.txt
 $ pip install .
 $ raml-test-py --parser PARSER_NAME

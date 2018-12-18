@@ -11,8 +11,8 @@ NOTE: If file name contains "invalid" parsing of it is expected to fail.
 ## Install & run
 
 ```sh
-$ git clone git@github.com:postatum/raml-parsers-test-js.git
-$ cd raml-parsers-test-js
+$ git clone git@github.com:postatum/raml-parsers-test.git
+$ cd raml-parsers-test/js
 $ npm install
 $ node src/index.js --parser PARSER_NAME
 ```

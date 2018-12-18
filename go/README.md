@@ -8,18 +8,13 @@ Uses [raml-tck](https://github.com/raml-org/raml-tck/tree/master/tests/raml-1.0)
 
 NOTE: If file name contains "invalid" parsing of it is expected to fail.
 
-## Install & run as bin
+## Install & run
 
 ```sh
-$ go install github.com/postatum/raml-parsers-test-go
-$ raml-parsers-test-go -parser PARSER_NAME
-```
-
-## Install & run raw code
-
-```sh
-$ git clone git@github.com:postatum/raml-parsers-test-go.git
-$ cd raml-parsers-test-go
+$ git clone git@github.com:postatum/raml-parsers-test.git
+$ mkdir -p $GOPATH/src/github.com/postatum/raml-parsers-test-go
+$ ln -s ./raml-parsers-test/go $GOPATH/src/github.com/postatum/raml-parsers-test-go
+$ cd $GOPATH/src/github.com/postatum/raml-parsers-test-go
 $ go run *.go -parser PARSER_NAME
 ```
 
@@ -33,11 +28,11 @@ $ raml-parsers-test-go -h
 
 Parser (defaults to `jumpscale`):
 ```sh
-$ raml-parsers-test-go -parser jumpscale/goraml/tsaikd
+$ go run *.go -parser jumpscale/goraml/tsaikd
 ```
 
 Verbose output (prints errors) (defaults to `false`):
 
 ```sh
-$ raml-parsers-test-go -verbose
+$ go run *.go -verbose
 ```
