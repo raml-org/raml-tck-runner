@@ -1,23 +1,15 @@
 {
-  "name": "raml-parsers-test-js",
+  "name": "raml-tck-runner-js",
   "version": "1.0.0",
-  "description": "Simple test of few RAML Go parsers. Tests simply try to parse a set of examples and report if parser returned an error.",
+  "description": "Simple test of few RAML JS parsers.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/.bin/eslint .eslintrc.json ./src"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/raml-org/raml-tck-runner.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/raml-org/raml-tck-runner/issues"
-  },
-  "homepage": "https://github.com/raml-org/raml-tck-runner#readme",
   "dependencies": {
     "amf-client-js": "^3.1.0",
     "minimist": "^1.2.0",

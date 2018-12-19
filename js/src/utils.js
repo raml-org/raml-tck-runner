@@ -23,10 +23,6 @@ function listRamls (foldPath) {
   })
 }
 
-function shouldFail (fpath) {
-  return fpath.toLowerCase().includes('invalid')
-}
-
 function saveReport (report) {
   const fdir = path.join(__dirname, '..', '..', 'reports')
   try { fs.mkdirSync(fdir) } catch(e) {}
@@ -37,6 +33,5 @@ function saveReport (report) {
 module.exports = {
   cloneTckRepo: cloneTckRepo,
   listRamls: listRamls,
-  shouldFail: shouldFail,
   saveReport: saveReport
 }
