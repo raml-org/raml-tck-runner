@@ -16,7 +16,7 @@ setup(
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5"
     ],
-    url='https://github.com/postatum/raml-parsers-test-py',
+    url='https://github.com/raml-org/raml-tck-runner',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,

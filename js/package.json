@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/postatum/raml-parsers-test-js.git"
+    "url": "git+https://github.com/raml-org/raml-tck-runner.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/postatum/raml-parsers-test-js/issues"
+    "url": "https://github.com/raml-org/raml-tck-runner/issues"
   },
-  "homepage": "https://github.com/postatum/raml-parsers-test-js#readme",
+  "homepage": "https://github.com/raml-org/raml-tck-runner#readme",
   "dependencies": {
     "amf-client-js": "^3.1.0",
     "minimist": "^1.2.0",

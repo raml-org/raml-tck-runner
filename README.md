@@ -1,5 +1,3 @@
-# raml-parsers-test
+# raml-tck-runner
 
-Test few RAML parsers
-
-Inpect each language directory for more details.
+Run several RAML parsers against https://github.com/raml-org/raml-tck
