@@ -27,8 +27,16 @@ function shouldFail (fpath) {
   return fpath.toLowerCase().includes('invalid')
 }
 
+function saveReport (report) {
+  const fdir = path.join(__dirname, '..', '..', 'reports')
+  try { fs.mkdirSync(fdir) } catch(e) {}
+  const fpath = path.join(fdir, `${report.parser}.json`)
+  fs.writeFileSync(fpath, JSON.stringify(report, null, 2))
+}
+
 module.exports = {
   cloneTckRepo: cloneTckRepo,
   listRamls: listRamls,
-  shouldFail: shouldFail
+  shouldFail: shouldFail,
+  saveReport: saveReport
 }
