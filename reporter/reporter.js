@@ -3,15 +3,14 @@ const fs = require('fs')
 
 function main () {
   const reportsDir = path.join(__dirname, '..', 'reports')
-  let reports = {}
+  let stats = []
   let report
   fs.readdirSync(reportsDir).forEach(fpath => {
     report = JSON.parse(fs.readFileSync(fpath))
     interpretReport(report)
-    reports[report.parser] = report
+    stats.push(composeReportStats(report))
     generateReportPage(report)
   })
-  const stats = composeStats(reports)
   generateStatsPage(stats)
 }
 
@@ -33,16 +32,17 @@ function interpretReport (report) {
   })
 }
 
-function composeStats (reports) {
+function composeReportStats (report) {
   // compose short report for stats page
-}
-
-function generateStatsPage (stats) {
-  // should generate main page html
+  // return {parser: name, stats: {}}
 }
 
 function generateReportPage (report) {
   // should generate page for each parser
+}
+
+function generateStatsPage (stats) {
+  // should generate main page html
 }
 
 function shouldFail (fpath) {
