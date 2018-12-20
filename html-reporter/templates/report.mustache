@@ -5,6 +5,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./bootstrap.min.css">
+  <style type="text/css">
+    .parser-error {
+      display: none;
+    }
+    .danger {
+      cursor: pointer;
+    }
+  </style>
+  <script type="text/javascript">
+    function toggleErrorLog (row) {
+      const nextEl = row.nextElementSibling
+      const visible = nextEl.style.display === 'contents'
+      nextEl.style.display = visible ? 'none' : 'contents'
+    }
+  </script>
 </head>
   <body>
     <div class="container-fluid">
@@ -18,13 +33,21 @@
         </thead>
         <tbody>
           {{#results}}
-            <tr class="{{#success}}success{{/success}}{{^success}}danger{{/success}}">
+            <tr
+              class="{{#success}}success{{/success}}{{^success}}danger{{/success}}"
+              {{^success}}onclick="toggleErrorLog(this)"{{/success}}
+              >
               <td><a href="{{fileUrl}}">{{file}}</a></td>
               <td>
                 {{#success}}Yes{{/success}}
                 {{^success}}No{{/success}}
               </td>
             </tr>
+            {{#error}}
+              <tr class="danger parser-error">
+                <td colspan="2"><pre>{{error}}</pre></td>
+              </tr>
+            {{/error}}
           {{/results}}
         </tbody>
       </table>
