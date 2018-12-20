@@ -8,11 +8,12 @@
     "lint": "./node_modules/.bin/eslint .eslintrc.json ./src"
   },
   "keywords": [],
-  "author": "",
+  "author": "MuleSoft",
   "license": "ISC",
   "dependencies": {
     "amf-client-js": "^3.1.0",
     "minimist": "^1.2.0",
+    "mustache": "^3.0.1",
     "raml-1-parser": "^1.1.50",
     "rimraf": "^2.6.2",
     "webapi-parser": "^0.0.1"

@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 function main () {
-  const reportsDir = path.join(__dirname, '..', 'reports')
+  const reportsDir = path.join(__dirname, '..', '..', 'reports')
   let stats = []
   let report
   fs.readdirSync(reportsDir).forEach(fpath => {
@@ -64,8 +64,9 @@ function composeReportStats (report) {
   return stats
 }
 
+/* Generate report page for single parser */
 function generateReportPage (report) {
-  // should generate page for each parser
+
 }
 
 function generateStatsPage (stats) {
