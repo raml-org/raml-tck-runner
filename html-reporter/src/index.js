@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const Mustache = require('mustache')
 
 function main () {
   const reportsDir = path.join(__dirname, '..', '..', 'reports')
@@ -9,9 +10,9 @@ function main () {
     report = JSON.parse(fs.readFileSync(fpath))
     interpretReport(report)
     stats.push(composeReportStats(report))
-    generateReportPage(report)
+    renderTemplate(report, 'report', report.parser)
   })
-  generateStatsPage(stats)
+  renderTemplate(stats, 'index', 'index')
 }
 
 /*
@@ -64,13 +65,15 @@ function composeReportStats (report) {
   return stats
 }
 
-/* Generate report page for single parser */
-function generateReportPage (report) {
-
-}
-
-function generateStatsPage (stats) {
-  // should generate main page html
+function renderTemplate (data, tmplName, htmlName) {
+  const inPath = path.join(
+    __dirname, '..', 'templates', `${tmplName}.mustache`)
+  const tmplStr = fs.readFileSync(inPath)
+  const htmlStr = Mustache.render(tmplStr, data)
+  const outDir = path.join(__dirname, '..', '..', 'reports', 'html')
+  try { fs.mkdirSync(outDir) } catch(e) {}
+  const outPath = path.join(outDir, `${htmlName}.html`)
+  fs.writeFileSync(outPath, htmlStr)
 }
 
 function shouldFail (fpath) {
