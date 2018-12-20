@@ -12,7 +12,7 @@ function main () {
     let fullPath = path.join(reportsDir, fpath)
     console.log(`Processing report: ${fullPath}`)
     let report = JSON.parse(fs.readFileSync(fullPath))
-    interpretReport(report, fullPath)
+    interpretReport(report)
     stats.push(composeReportStats(report))
     renderTemplate(report, 'report', report.parser)
   })
@@ -23,7 +23,7 @@ function main () {
   * Inverts invalid files parsing results;
   * Composes repo url from relative file path;
 */
-function interpretReport (report, fpath) {
+function interpretReport (report) {
   const branch = 'rename-cleanup'
   const repo = `https://github.com/raml-org/raml-tck/tree/${branch}`
   report.results.forEach(result => {
@@ -38,7 +38,7 @@ function interpretReport (report, fpath) {
     result.file = result.file.startsWith('/')
       ? result.file.slice(1)
       : result.file
-    result.file = `${repo}/tests/raml-1.0/${fpath}`
+    result.fileUrl = `${repo}/tests/raml-1.0/${result.file}`
   })
 }
 

@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title></title>
-  </head>
+<html lang="en">
+<head>
+  <title>RAML Parsers Overview</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./bootstrap.min.css">
+</head>
   <body>
-    {{#stats}}
-      <p>{{parser}}</p>
-    {{/stats}}
+    <div class="container-fluid">
+      <h3>Overview</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Parser</th>
+            <th>Valid Files</th>
+            <th>Invalid Files</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#stats}}
+            <tr>
+              <td><a href="{{parser}}.html">{{parser}}</a></td>
+              <td>{{valid.success}}/{{valid.total}}</td>
+              <td>{{invalid.success}}/{{invalid.total}}</td>
+              <td>{{all.success}}/{{all.total}}</td>
+            </tr>
+          {{/stats}}
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>
+

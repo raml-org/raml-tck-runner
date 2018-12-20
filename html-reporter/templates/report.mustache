@@ -1,9 +1,34 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title></title>
-  </head>
+<html lang="en">
+<head>
+  <title>{{parser}} report</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./bootstrap.min.css">
+</head>
   <body>
-    <p>{{parser}}</p>
+    <div class="container-fluid">
+      <h3><a href="index.html">Overview</a> > {{parser}}</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Success</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#results}}
+            <tr class="{{#success}}success{{/success}}{{^success}}danger{{/success}}">
+              <td><a href="{{fileUrl}}">{{file}}</a></td>
+              <td>
+                {{#success}}Yes{{/success}}
+                {{^success}}No{{/success}}
+              </td>
+            </tr>
+          {{/results}}
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>
+
