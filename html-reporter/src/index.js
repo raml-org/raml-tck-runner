@@ -5,21 +5,25 @@ const Mustache = require('mustache')
 function main () {
   const reportsDir = path.join(__dirname, '..', '..', 'reports')
   let stats = []
-  let report
   fs.readdirSync(reportsDir).forEach(fpath => {
-    report = JSON.parse(fs.readFileSync(fpath))
-    interpretReport(report)
+    if (!fpath.endsWith('.json')) {
+      return
+    }
+    let fullPath = path.join(reportsDir, fpath)
+    console.log(`Processing report: ${fullPath}`)
+    let report = JSON.parse(fs.readFileSync(fullPath))
+    interpretReport(report, fullPath)
     stats.push(composeReportStats(report))
     renderTemplate(report, 'report', report.parser)
   })
-  renderTemplate(stats, 'index', 'index')
+  renderTemplate({stats: stats}, 'index', 'index')
 }
 
 /*
   * Inverts invalid files parsing results;
   * Composes repo url from relative file path;
 */
-function interpretReport (report) {
+function interpretReport (report, fpath) {
   const branch = 'rename-cleanup'
   const repo = `https://github.com/raml-org/raml-tck/tree/${branch}`
   report.results.forEach(result => {
@@ -68,12 +72,13 @@ function composeReportStats (report) {
 function renderTemplate (data, tmplName, htmlName) {
   const inPath = path.join(
     __dirname, '..', 'templates', `${tmplName}.mustache`)
-  const tmplStr = fs.readFileSync(inPath)
+  const tmplStr = fs.readFileSync(inPath, 'utf-8')
   const htmlStr = Mustache.render(tmplStr, data)
   const outDir = path.join(__dirname, '..', '..', 'reports', 'html')
-  try { fs.mkdirSync(outDir) } catch(e) {}
+  try { fs.mkdirSync(outDir) } catch (e) {}
   const outPath = path.join(outDir, `${htmlName}.html`)
   fs.writeFileSync(outPath, htmlStr)
+  console.log(`Rendered HTML: ${outPath}`)
 }
 
 function shouldFail (fpath) {
