@@ -3,7 +3,7 @@ const fs = require('fs')
 const Mustache = require('mustache')
 
 function main () {
-  const reportsDir = path.join(__dirname, '..', '..', 'reports')
+  const reportsDir = path.join(__dirname, '..', '..', 'reports', 'json')
   let stats = []
   fs.readdirSync(reportsDir).forEach(fpath => {
     if (!fpath.endsWith('.json')) {
@@ -75,7 +75,6 @@ function renderTemplate (data, tmplName, htmlName) {
   const tmplStr = fs.readFileSync(inPath, 'utf-8')
   const htmlStr = Mustache.render(tmplStr, data)
   const outDir = path.join(__dirname, '..', '..', 'reports', 'html')
-  try { fs.mkdirSync(outDir) } catch (e) {}
   const outPath = path.join(outDir, `${htmlName}.html`)
   fs.writeFileSync(outPath, htmlStr)
   console.log(`Rendered HTML: ${outPath}`)
