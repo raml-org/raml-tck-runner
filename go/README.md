@@ -2,6 +2,8 @@
 
 Simple test of few RAML Go parsers. Tests simply try to parse a set of examples and report if parser returned an error.
 
+Reports are saved to `raml-tck-runner/reports/json/<PARSER_NAME>.json`.
+
 A fine collection of RAML files can be composed each containing one/few RAML features to test those in isolation.
 
 Uses [raml-tck](https://github.com/raml-org/raml-tck/tree/master/tests/raml-1.0) as a source of RAML for tests.
@@ -34,10 +36,4 @@ $ go run *.go -h
 Parser (defaults to `jumpscale`):
 ```sh
 $ go run *.go -parser jumpscale/go-raml/tsaikd
-```
-
-Verbose output (prints errors) (defaults to `false`):
-
-```sh
-$ go run *.go -verbose
 ```
