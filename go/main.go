@@ -23,12 +23,12 @@ type Report struct {
 func main() {
 	parserFl := flag.String(
 		"parser", "jumpscale",
-		"Parser to test. Supported: jumpscale, goraml, tsaikd.")
+		"Parser to test. Supported: jumpscale, go-raml, tsaikd.")
 	flag.Parse()
 
 	parsers := map[string]Parser{
 		"jumpscale": Jumpscale,
-		"goraml":    Goraml,
+		"go-raml":   Goraml,
 		"tsaikd":    Tsaikd,
 	}
 	parser, ok := parsers[*parserFl]

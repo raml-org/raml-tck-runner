@@ -33,7 +33,7 @@ $ go run *.go -h
 
 Parser (defaults to `jumpscale`):
 ```sh
-$ go run *.go -parser jumpscale/goraml/tsaikd
+$ go run *.go -parser jumpscale/go-raml/tsaikd
 ```
 
 Verbose output (prints errors) (defaults to `false`):
