@@ -31,6 +31,7 @@ func Goraml(fpath string) (error, bool) {
 }
 
 // Tsaikd runs https://github.com/tsaikd/go-raml-parser/tree/master/parser
+// NOTE: It doesn't produce JSON output because it causes fatal error.
 func Tsaikd(fpath string) (error, bool) {
 	defer recovery()
 	ramlParser := tsaikd.NewParser()
