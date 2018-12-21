@@ -31,7 +31,7 @@ $ ruby main.rb -h
 
 Parser:
 ```sh
-$ ruby main.rb --parser brujula/ramlrb
+$ ruby main.rb --parser brujula/raml-rb
 ```
 
 Verbose output (prints errors) (defaults to `false`):

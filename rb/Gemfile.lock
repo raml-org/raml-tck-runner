@@ -4,6 +4,7 @@ GEM
     brujula (0.2.0)
       inflecto
       mime-types
+    git (1.5.0)
     inflecto (0.0.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -15,6 +16,7 @@ PLATFORMS
 
 DEPENDENCIES
   brujula
+  git
   raml-rb
 
 BUNDLED WITH

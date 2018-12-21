@@ -9,7 +9,7 @@ require 'json'
 class OptParse
   # brujula: https://github.com/nogates/brujula
   # ramlrb:  https://github.com/jpb/raml-rb
-  @parsers = %w[brujula ramlrb]
+  @parsers = %w[brujula raml-rb]
 
   class << self
     attr_accessor :parsers
@@ -48,6 +48,7 @@ class OptParse
   end
 end
 
+# Clones raml-tck repo and returns its tests path
 def clone_tck_repo
   repo_dir = File.join(Dir.tmpdir, 'raml-tck')
   FileUtils.remove_dir(repo_dir) if File.directory?(repo_dir)
@@ -58,9 +59,9 @@ def clone_tck_repo
   )
   repo.checkout('rename-cleanup')
   File.join(repo_dir, 'tests', 'raml-1.0')
-  # '/home/post/projects/raml-tck/tests/raml-1.0/' # DEBUG
 end
 
+# Lists RAML files in a folder
 def list_ramls(ex_dir)
   manifest_path = File.join(ex_dir, 'manifest.json')
   manifest_file = File.read(manifest_path)
@@ -70,6 +71,12 @@ def list_ramls(ex_dir)
   end
 end
 
-def should_fail?(fpath)
-  fpath.downcase.include?('invalid')
+# Saves report to JSON file
+def save_report(report)
+  reports_dir = File.join(__dir__, '..', 'reports', 'json')
+  FileUtils.mkdir_p(reports_dir) unless File.directory?(reports_dir)
+  report_file = File.join(reports_dir, "#{report['parser']}.json")
+  File.open(report_file, 'w') do |f|
+    f.write(JSON.pretty_generate(report))
+  end
 end
