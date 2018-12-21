@@ -4,18 +4,28 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"strings"
 )
+
+// FileResult represents a single file parsing result
+type FileResult struct {
+	File    string `json:"file"`
+	Success bool   `json:"success"`
+	Error   string `json:"error"`
+}
+
+// Report represents a parser parsing results
+type Report struct {
+	Parser  string        `json:"parser"`
+	Results []*FileResult `json:"results"`
+}
 
 func main() {
 	parserFl := flag.String(
 		"parser", "jumpscale",
 		"Parser to test. Supported: jumpscale, goraml, tsaikd.")
-	verboseFl := flag.Bool(
-		"verbose", false,
-		"Verbose mode. Parsing errors will be printed.")
 	flag.Parse()
 
-	verbose := *verboseFl
 	parsers := map[string]Parser{
 		"jumpscale": Jumpscale,
 		"goraml":    Goraml,
@@ -34,49 +44,27 @@ func main() {
 		return
 	}
 
-	var result string
-	var shouldFail bool
-	var countKey string
-	count := map[string]map[string]int{
-		"valid":   {"passed": 0, "total": 0},
-		"invalid": {"passed": 0, "total": 0},
+	report := &Report{
+		Parser:  *parserFl,
+		Results: []*FileResult{},
 	}
 
 	for _, fpath := range fileList {
-		fmt.Printf("> Parsing %s: ", fpath)
-		shouldFail = ShouldFail(fpath)
-		if shouldFail {
-			countKey = "invalid"
-		} else {
-			countKey = "valid"
-		}
-		count[countKey]["total"]++
 		err, notPanic := parser(fpath)
 		if !notPanic {
-			continue
+			err = errors.New("Parser crashed")
 		}
-		failed := err != nil
-		if shouldFail {
-			failed = !failed
-			if err == nil {
-				err = errors.New(
-					"Parsing expected to fail but succeeded")
-			}
+
+		result := &FileResult{
+			File:    strings.Replace(fpath, examplesFl, "", -1),
+			Success: err == nil,
+			Error:   "",
 		}
-		result = "OK"
-		if failed {
-			result = "FAIL"
-		} else {
-			count[countKey]["passed"]++
+		if err != nil {
+			result.Error = err.Error()
 		}
-		fmt.Printf("%s\n", result)
-		if verbose && err != nil {
-			fmt.Println(err.Error())
-		}
+		report.Results = append(report.Results, result)
 	}
-	tmpl := "\nPassed/Total: %d/%d (valid: %d/%d, invalid: %d/%d)\n"
-	fmt.Printf(
-		tmpl, count["valid"]["passed"]+count["invalid"]["passed"], len(fileList),
-		count["valid"]["passed"], count["valid"]["total"],
-		count["invalid"]["passed"], count["invalid"]["total"])
+
+	SaveReport(report)
 }

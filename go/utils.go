@@ -2,12 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	// "fmt"
+	"fmt"
 	"io/ioutil"
 	"os"
-	// "os/exec"
+	"os/exec"
 	"path/filepath"
-	"strings"
 )
 
 type manifest struct {
@@ -47,10 +46,33 @@ func CloneTckRepo() string {
 		panic(fmt.Sprintf("Failed to clone repo %s", gitRepo))
 	}
 	return fmt.Sprintf("%s/tests/raml-1.0", targetDir)
-	// return "/home/post/projects/raml-tck/tests/raml-1.0/"  // DEBUG
 }
 
-// ShouldFail reports whether parsing of RAML file should fail
-func ShouldFail(fpath string) bool {
-	return strings.Contains(strings.ToLower(fpath), "invalid")
+// SaveReport writes parsing run report as JSON file
+func SaveReport(report *Report) {
+	workDir, err := os.Getwd()
+	if err != nil {
+		panic(fmt.Sprintf(
+			"Failed to get current working dir: %s", err.Error()))
+	}
+	repDirPath := filepath.Join(workDir, "..", "reports", "json")
+	err = os.MkdirAll(repDirPath, os.ModePerm)
+	if err != nil {
+		panic(fmt.Sprintf(
+			"Failed to create reports dir at %s: %s",
+			repDirPath, err.Error()))
+	}
+	repFilePath := filepath.Join(
+		repDirPath, fmt.Sprintf("%s.json", report.Parser))
+	reportJson, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		panic(fmt.Sprintf(
+			"Failed to marshal report: %s", err.Error()))
+	}
+	err = ioutil.WriteFile(repFilePath, reportJson, 0644)
+	if err != nil {
+		panic(fmt.Sprintf(
+			"Failed to write report to %s: %s",
+			repFilePath, err.Error()))
+	}
 }
