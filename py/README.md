@@ -32,7 +32,7 @@ $ raml-test-py -h
 
 Parser:
 ```sh
-$ raml-test-py --parser ramlfications/pyraml
+$ raml-test-py --parser ramlfications/pyraml-parser
 ```
 
 Verbose output (prints errors) (defaults to `false`):

@@ -7,19 +7,21 @@ import json
 from git import Repo
 
 
+# Parser command line arguments
 def parse_args():
     arg_parser = argparse.ArgumentParser(
         description='Test few RAML Python parsers.')
     arg_parser.add_argument(
         '--parser', type=str, help='Parser to test',
-        choices=['ramlfications', 'pyraml'],
+        choices=[
+            'ramlfications',
+            'pyraml-parser',
+        ],
         required=True)
-    arg_parser.add_argument(
-        '--verbose', help='Print errors or not',
-        action='store_true')
     return arg_parser.parse_args()
 
 
+# Clones raml-tck repo
 def clone_tck_repo():
     repo_dir = os.path.join(tempfile.gettempdir(), 'raml-tck')
     if os.path.exists(repo_dir):
@@ -33,8 +35,9 @@ def clone_tck_repo():
     origin.fetch('refs/heads/rename-cleanup:refs/heads/origin')
     origin.pull(origin.refs[0].remote_head)
     return os.path.join(repo_dir, 'tests', 'raml-1.0')
-    # return '/home/post/projects/raml-tck/tests/raml-1.0/'  # DEBUG
 
+
+# Lists RAML files in a folder
 def list_ramls(ex_dir):
     manifest_path = os.path.join(ex_dir, 'manifest.json')
     with open(manifest_path) as f:
@@ -42,5 +45,13 @@ def list_ramls(ex_dir):
     return [os.path.join(ex_dir, fp) for fp in manifest['filePaths']]
 
 
-def should_fail(fpath):
-    return 'invalid' in fpath.lower()
+# Saves report to json file in reports/json folder
+def save_report(report):
+    file_dir = os.path.dirname(os.path.realpath(__file__))
+    reports_dir = os.path.join(file_dir, '..', '..', 'reports', 'json')
+    if not os.path.exists(reports_dir):
+        os.makedirs(reports_dir)
+    report_fpath = os.path.join(
+        reports_dir, '{}.json'.format(report['parser']))
+    with open(report_fpath, 'w') as f:
+        json.dump(report, f, indent=2)

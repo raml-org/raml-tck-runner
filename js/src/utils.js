@@ -4,6 +4,7 @@ const fs = require('fs')
 const { execSync } = require('child_process')
 const rimraf = require('rimraf')
 
+/* Clones raml-tck repo and returns tests path */
 function cloneTckRepo () {
   const repoDir = path.join(os.tmpdir(), 'raml-tck')
   rimraf.sync(repoDir)
@@ -12,9 +13,9 @@ function cloneTckRepo () {
     'git clone -b rename-cleanup git@github.com:raml-org/raml-tck.git ' +
     repoDir)
   return path.join(repoDir, 'tests', 'raml-1.0')
-  // return '/home/post/projects/raml-tck/tests/raml-1.0/'  // DEBUG
 }
 
+/* Lists raml files in folder */
 function listRamls (foldPath) {
   const manifestPath = path.join(foldPath, 'manifest.json')
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
@@ -23,6 +24,7 @@ function listRamls (foldPath) {
   })
 }
 
+/* Writes JSON report to reports/json folder */
 function saveReport (report) {
   const fdir = path.join(__dirname, '..', '..', 'reports', 'json')
   try { fs.mkdirSync(fdir) } catch(e) {}
