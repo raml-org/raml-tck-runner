@@ -13,15 +13,17 @@
         <thead>
           <tr>
             <th>Parser</th>
-            <th>Valid Files</th>
-            <th>Invalid Files</th>
-            <th>Total</th>
+            <th>Valid Files (passed/all)</th>
+            <th>Invalid Files (passed/all)</th>
+            <th>Total (passed/all)</th>
           </tr>
         </thead>
         <tbody>
           {{#stats}}
             <tr>
-              <td><a href="{{parser}}.html">{{parser}}</a></td>
+              <td>
+                <a href="{{parser}}.html" title="View detailed {{parser}} report">{{parser}}</a>
+              </td>
               <td>{{valid.success}}/{{valid.total}}</td>
               <td>{{invalid.success}}/{{invalid.total}}</td>
               <td>{{all.success}}/{{all.total}}</td>

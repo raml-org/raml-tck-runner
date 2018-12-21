@@ -35,9 +35,12 @@
           {{#results}}
             <tr
               class="{{#success}}success{{/success}}{{^success}}danger{{/success}}"
-              {{^success}}onclick="toggleErrorLog(this)"{{/success}}
+              {{^success}}onclick="toggleErrorLog(this)" {{/success}}
+              {{^success}}title="Click to show/hide error log"{{/success}}
               >
-              <td><a href="{{fileUrl}}">{{file}}</a></td>
+              <td>
+                <a href="{{fileUrl}}" title="View file on Github">{{file}}</a>
+              </td>
               <td>
                 {{#success}}Yes{{/success}}
                 {{^success}}No{{/success}}
