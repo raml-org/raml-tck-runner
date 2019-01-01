@@ -62,6 +62,7 @@ report-js:
 
 report-py:
 	cd $(PY_RUNNER_DIR)
+	. $(PY_ENV)/bin/activate
 	raml-test-py --parser ramlfications
 	raml-test-py --parser pyraml-parser
 
