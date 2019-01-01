@@ -2,7 +2,7 @@
 
 Simple test of few RAML Ruby parsers. Tests simply try to parse a set of examples and report if parser returned an error.
 
-Reports are saved to `raml-tck-runner/reports/json/<PARSER_NAME>.json`.
+Running tests produces JSON reports which are saved to `raml-tck-runner/reports/json/<PARSER_NAME>.json`.
 
 A fine collection of RAML files can be composed each containing one/few RAML features to test those in isolation.
 
@@ -14,7 +14,7 @@ NOTE: If file name contains "invalid" parsing of it is expected to fail.
 
 ```sh
 $ git clone git@github.com:raml-org/raml-tck-runner.git
-$ cd raml-parsers-test/rb
+$ cd raml-tck-runner/rb
 $ bundle install
 ```
 

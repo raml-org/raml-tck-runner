@@ -10,16 +10,35 @@ PY_ENV:=venv
 .ONESHELL:
 all: install report generate-html browse
 
+all-js:	install-html-reporter \
+		install-js \
+		report-js \
+		generate-html \
+		browse
+
+all-py:	install-html-reporter \
+		install-py \
+		report-py \
+		generate-html \
+		browse
+
+all-rb:	install-html-reporter \
+		install-rb \
+		report-rb \
+		generate-html \
+		browse
+
+all-go:	install-html-reporter \
+		install-go \
+		report-go \
+		generate-html \
+		browse
+
 install: install-html-reporter \
 		 install-js \
 		 install-py \
 		 install-rb \
 		 install-go
-
-create-virtualenv:
-	sudo pip install virtualenv
-	cd $(PY_RUNNER_DIR)
-	virtualenv $(PY_ENV)
 
 install-html-reporter:
 	cd $(REPORTER_DIR)
@@ -28,10 +47,20 @@ install-html-reporter:
 install-js:
 	cd $(JS_RUNNER_DIR)
 	npm install .
-	# Remove when webapi-parser is hosted on NPM and instead add
-	# this line to js/package.json#dependencies:
-	# "webapi-parser": "^0.0.1"
+	# IMPORTANT:
+	#
+	# Remove linking when webapi-parser is hosted on NPM and add it
+	# as NPM dependency to js/package.json#dependencies:
+	# 	"webapi-parser": "^0.0.1"
+	#
+	# Meanwhile replace this with path to your locally built
+	# webapi-parser npm package.
 	npm link /home/post/projects/webapi-parser/js/module/
+
+create-virtualenv:
+	sudo pip install virtualenv
+	cd $(PY_RUNNER_DIR)
+	virtualenv $(PY_ENV)
 
 install-py: create-virtualenv
 	cd $(PY_RUNNER_DIR)
@@ -45,6 +74,7 @@ install-rb:
 	bundle install
 
 install-go:
+	# Link go runner folder to GOPATH so it works like proper Go project
 	mkdir -p $(GO_PROJECT_DIR)
 	rm -rf $(GO_PROJECT_DIR)
 	ln -s $(GO_RUNNER_DIR) $(GO_PROJECT_DIR)
