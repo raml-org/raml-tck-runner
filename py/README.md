@@ -16,7 +16,7 @@ NOTE: If file name contains "invalid" parsing of it is expected to fail.
 $ git clone git@github.com:raml-org/raml-tck-runner.git
 $ cd raml-parsers-test/py
 $ pip install -r requirements.txt
-$ pip install .
+$ pip install -e .
 ```
 
 ## Run

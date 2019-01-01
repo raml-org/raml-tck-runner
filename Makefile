@@ -5,7 +5,7 @@ PY_RUNNER_DIR:=$(ROOT_DIR)/py
 RB_RUNNER_DIR:=$(ROOT_DIR)/rb
 GO_RUNNER_DIR:=$(ROOT_DIR)/go
 GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/raml-tck-runner-go
-PY_ENV:=raml-tck-runner
+PY_ENV:=venv
 
 .ONESHELL:
 all: install report generate-html browse
@@ -16,15 +16,10 @@ install: install-html-reporter \
 		 install-rb \
 		 install-go
 
-install-virtualenv:
-	# ifndef $(shell mkvirtualenv 1> /dev/null)
-	# 	sudo pip install virtualenv virtualenvwrapper
-	# 	mkdir ~/.virtualenvs
-	# 	export WORKON_HOME=$(HOME)/.virtualenvs
-	# 	source /usr/local/bin/virtualenvwrapper.sh
-	# 	export PIP_VIRTUALENV_BASE=$(WORKON_HOME)
-	# endif
-	# mkvirtualenv $(PY_ENV)
+create-virtualenv:
+	sudo pip install virtualenv
+	cd $(PY_RUNNER_DIR)
+	virtualenv $(PY_ENV)
 
 install-html-reporter:
 	cd $(REPORTER_DIR)
@@ -38,19 +33,20 @@ install-js:
 	# "webapi-parser": "^0.0.1"
 	npm link /home/post/projects/webapi-parser/js/module/
 
-install-py: install-virtualenv
+install-py: create-virtualenv
 	cd $(PY_RUNNER_DIR)
-	# workon $(PY_ENV)
+	. $(PY_ENV)/bin/activate
 	pip install -r requirements.txt
-	pip install .
+	# Install with -e so path to reports is resolved properly
+	pip install -e .
 
 install-rb:
 	cd $(RB_RUNNER_DIR)
 	bundle install
 
 install-go:
-	cd $(GO_RUNNER_DIR)
 	mkdir -p $(GO_PROJECT_DIR)
+	rm -rf $(GO_PROJECT_DIR)
 	ln -s $(GO_RUNNER_DIR) $(GO_PROJECT_DIR)
 
 report: report-js \
@@ -75,7 +71,7 @@ report-rb:
 	ruby main.rb --parser raml-rb
 
 report-go:
-	cd $(GO_PROJECT_DIR)
+	cd $(GO_RUNNER_DIR)
 	go run *.go -parser jumpscale
 	go run *.go -parser go-raml
 	# Ignore this parser because it causes unrecoverable fatal error.
@@ -86,10 +82,10 @@ generate-html:
 	node src/index.js
 
 browse:
-	cd $(ROOT_DIR)
-	browse reports/html/index.html
+	browse $(ROOT_DIR)/reports/html/index.html
 
 clean:
-	cd $(ROOT_DIR)
-	rm reports/json/*
-	rm reports/html/*.html
+	rm $(ROOT_DIR)/reports/json/*
+	rm $(ROOT_DIR)/reports/html/*.html
+	rm -rf $(JS_RUNNER_DIR)/node_modules
+	rm -rf $(PY_RUNNER_DIR)/$(PY_ENV)

@@ -47,8 +47,8 @@ def list_ramls(ex_dir):
 
 # Saves report to json file in reports/json folder
 def save_report(report):
-    file_dir = os.path.dirname(os.path.realpath(__file__))
-    reports_dir = os.path.join(file_dir, '..', '..', 'reports', 'json')
+    pyfile_dir = os.path.dirname(os.path.realpath(__file__))
+    reports_dir = os.path.join(pyfile_dir, '..', '..', 'reports', 'json')
     if not os.path.exists(reports_dir):
         os.makedirs(reports_dir)
     report_fpath = os.path.join(
