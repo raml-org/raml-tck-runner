@@ -105,8 +105,6 @@ report-go:
 	cd $(GO_RUNNER_DIR)
 	go run *.go -parser jumpscale
 	go run *.go -parser go-raml
-	# Ignore this parser because it causes unrecoverable fatal error.
-	# go run *.go -parser tsaikd
 
 generate-html:
 	cd $(REPORTER_DIR)
