@@ -12,7 +12,6 @@ $ make
 Parsers tested:
 * [jumpscale/go-raml](https://github.com/Jumpscale/go-raml/tree/master/raml)
 * [go-raml/raml](https://github.com/go-raml/raml)
-* [tsaikd/go-raml-parser](https://github.com/tsaikd/go-raml-parser/tree/master/parser) (isn't actually run because it produces fatal error)
 
 To generate only Go parsers report:
 ```sh

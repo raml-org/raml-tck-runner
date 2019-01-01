@@ -36,5 +36,5 @@ $ go run *.go -h
 
 Parser (defaults to `jumpscale`):
 ```sh
-$ go run *.go -parser jumpscale/go-raml/tsaikd
+$ go run *.go -parser jumpscale/go-raml
 ```
