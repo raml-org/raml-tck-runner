@@ -5,7 +5,7 @@ def parse_with(parser_name, fpath)
   case parser_name
   when 'brujula'
     brujula_parse(fpath)
-  when 'ramlrb'
+  when 'raml-rb'
     ramlrb_parse(fpath)
   end
 end
@@ -15,43 +15,33 @@ def main
   ex_dir = clone_tck_repo
   files_list = list_ramls(ex_dir)
 
-  count = {
-    'valid' => { 'passed' => 0, 'total' => 0 },
-    'invalid' => { 'passed' => 0, 'total' => 0 }
+  report = {
+    'parser' => options.parser,
+    'results' => []
   }
+
   error = nil
 
   files_list.each do |fpath|
     success = true
-    print "> Parsing #{fpath}: "
 
     begin
       parse_with(options.parser, fpath)
     rescue StandardError => e
       success = false
-      error = e.message
+      error = "#{e.message}\n#{e.backtrace.join("\n")}"
     end
 
-    shouldf = should_fail?(fpath)
-    count_key = shouldf ? 'invalid' : 'valid'
-    count[count_key]['total'] += 1
-    if shouldf
-      success = !success
-      error = 'Parsing expected to fail but succeeded'
-    end
-
-    if success
-      count[count_key]['passed'] += 1
-      print 'OK '
-    else
-      print 'FAIL'
-      print ": #{error}" if options.verbose
-    end
-    puts
+    relative_fpath = fpath.sub! ex_dir, ''
+    result = {
+      'file' => relative_fpath,
+      'success' => success,
+      'error' => error
+    }
+    report['results'] << result
   end
-  puts("\nPassed/Total: #{count['valid']['passed'] + count['invalid']['passed']}/#{files_list.length}" \
-       " (valid: #{count['valid']['passed']}/#{count['valid']['total']}," \
-       " invalid: #{count['invalid']['passed']}/#{count['invalid']['total']})")
+
+  save_report(report)
 end
 
 main

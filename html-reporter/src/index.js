@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const Mustache = require('mustache')
 
+/* Runs all the logic */
 function main () {
   const reportsDir = path.join(__dirname, '..', '..', 'reports', 'json')
   let stats = []
@@ -69,6 +70,7 @@ function composeReportStats (report) {
   return stats
 }
 
+/* Renders single Mustache template with data and writes it to html file */
 function renderTemplate (data, tmplName, htmlName) {
   const inPath = path.join(
     __dirname, '..', 'templates', `${tmplName}.mustache`)
@@ -80,6 +82,7 @@ function renderTemplate (data, tmplName, htmlName) {
   console.log(`Rendered HTML: ${outPath}`)
 }
 
+/* Checks whether a file is expected to fail */
 function shouldFail (fpath) {
   return fpath.toLowerCase().includes('invalid')
 }

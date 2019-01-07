@@ -16,21 +16,22 @@ func recovery() {
 	}
 }
 
-// Jumpscale runs jumpscale/go-raml/raml parser
+// Jumpscale runs https://github.com/Jumpscale/go-raml/tree/master/raml
 func Jumpscale(fpath string) (error, bool) {
 	defer recovery()
 	apiDef := &jumpscale.APIDefinition{}
 	return jumpscale.ParseFile(fpath, apiDef), true
 }
 
-// Goraml runs go-raml/raml parser
+// Goraml runs https://github.com/go-raml/raml
 func Goraml(fpath string) (error, bool) {
 	defer recovery()
 	_, err := goraml.ParseFile(fpath)
 	return err, true
 }
 
-// Tsaikd runs tsaikd/go-raml-parser/parser parser
+// Tsaikd runs https://github.com/tsaikd/go-raml-parser/tree/master/parser
+// NOTE: It doesn't produce JSON output because it causes fatal error.
 func Tsaikd(fpath string) (error, bool) {
 	defer recovery()
 	ramlParser := tsaikd.NewParser()
