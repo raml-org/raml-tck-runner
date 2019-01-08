@@ -8,7 +8,7 @@ GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/raml-tck-runner-go
 PY_ENV:=venv
 
 .ONESHELL:
-all: install report generate-html browse
+all: clean install report generate-html browse
 
 all-js:	install-html-reporter \
 		install-js \
@@ -44,7 +44,7 @@ install-html-reporter:
 	cd $(REPORTER_DIR)
 	npm install .
 
-install-js:
+install-js: clean-js
 	cd $(JS_RUNNER_DIR)
 	npm install .
 	# IMPORTANT:
@@ -62,7 +62,7 @@ create-virtualenv:
 	cd $(PY_RUNNER_DIR)
 	virtualenv $(PY_ENV)
 
-install-py: create-virtualenv
+install-py: clean-py create-virtualenv
 	cd $(PY_RUNNER_DIR)
 	. $(PY_ENV)/bin/activate
 	pip install -r requirements.txt
@@ -113,8 +113,12 @@ generate-html:
 browse:
 	browse $(ROOT_DIR)/reports/html/index.html
 
-clean:
-	rm $(ROOT_DIR)/reports/json/*
-	rm $(ROOT_DIR)/reports/html/*.html
+clean: clean-js clean-py
+	rm -f $(ROOT_DIR)/reports/json/*
+	rm -f $(ROOT_DIR)/reports/html/*.html
+
+clean-js:
 	rm -rf $(JS_RUNNER_DIR)/node_modules
+
+clean-py:
 	rm -rf $(PY_RUNNER_DIR)/$(PY_ENV)
