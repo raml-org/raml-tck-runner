@@ -6,6 +6,7 @@ RB_RUNNER_DIR:=$(ROOT_DIR)/rb
 GO_RUNNER_DIR:=$(ROOT_DIR)/go
 GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/raml-tck-runner-go
 PY_ENV:=venv
+VENV_VERSION=16.2.0
 
 .ONESHELL:
 all: clean install report generate-html
@@ -54,9 +55,12 @@ install-js: clean-js
 	npm link $(ROOT_DIR)/../webapi-parser/js/module/
 
 create-virtualenv:
-	sudo pip install virtualenv
 	cd $(PY_RUNNER_DIR)
-	virtualenv $(PY_ENV)
+	mkdir $(PY_ENV)
+	cd $(PY_ENV)
+	wget https://github.com/pypa/virtualenv/archive/$(VENV_VERSION).tar.gz
+	tar xvfz $(VENV_VERSION).tar.gz
+	python virtualenv-$(VENV_VERSION)/virtualenv.py .
 
 install-py: clean-py create-virtualenv
 	cd $(PY_RUNNER_DIR)
