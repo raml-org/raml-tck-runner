@@ -49,9 +49,9 @@ install-js: clean-js
 	# as NPM dependency to js/package.json#dependencies:
 	# 	"webapi-parser": "^0.0.1"
 	#
-	# Meanwhile replace this with path to your locally built
-	# webapi-parser npm package.
-	npm link /home/post/projects/webapi-parser/js/module/
+	# Meanwhile your webapi-parser project must be at the same level
+	# as raml-tck-runner project.
+	npm link $(ROOT_DIR)/../webapi-parser/js/module/
 
 create-virtualenv:
 	sudo pip install virtualenv
