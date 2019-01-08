@@ -8,31 +8,27 @@ GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/raml-tck-runner-go
 PY_ENV:=venv
 
 .ONESHELL:
-all: clean install report generate-html browse
+all: clean install report generate-html
 
 all-js:	install-html-reporter \
 		install-js \
 		report-js \
-		generate-html \
-		browse
+		generate-html
 
 all-py:	install-html-reporter \
 		install-py \
 		report-py \
-		generate-html \
-		browse
+		generate-html
 
 all-rb:	install-html-reporter \
 		install-rb \
 		report-rb \
-		generate-html \
-		browse
+		generate-html
 
 all-go:	install-html-reporter \
 		install-go \
 		report-go \
-		generate-html \
-		browse
+		generate-html
 
 install: install-html-reporter \
 		 install-js \
@@ -109,9 +105,6 @@ report-go:
 generate-html:
 	cd $(REPORTER_DIR)
 	node src/index.js
-
-browse:
-	browse $(ROOT_DIR)/reports/html/index.html
 
 clean: clean-js clean-py
 	rm -f $(ROOT_DIR)/reports/json/*

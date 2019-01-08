@@ -3,10 +3,12 @@ Run several RAML parsers against https://github.com/raml-org/raml-tck
 
 ## Generating report
 
-Following command will install all runners, run them, generate HTML report and open report in browser:
+Following command will install all runners, run them and generate HTML report:
 ```sh
 $ make
 ```
+
+Then you can open generated HTML report (`reports/html/index.html`) in your browser.
 
 ## Go
 Parsers tested:
