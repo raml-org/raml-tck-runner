@@ -74,6 +74,8 @@ install-go:
 	mkdir -p $(GO_PROJECT_DIR)
 	rm -rf $(GO_PROJECT_DIR)
 	ln -s $(GO_RUNNER_DIR) $(GO_PROJECT_DIR)
+	cd $(GO_RUNNER_DIR)
+	go get
 
 report: report-js \
 		report-py \
