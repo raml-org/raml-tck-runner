@@ -23,7 +23,9 @@ type Report struct {
 func main() {
 	parserFl := flag.String(
 		"parser", "jumpscale",
-		"Parser to test. Supported: jumpscale, go-raml, tsaikd.")
+		"Parser to test. Supported: jumpscale, go-raml.")
+	outdirFl := flag.String(
+		"outdir", "./", "Output report directory path.")
 	flag.Parse()
 
 	parsers := map[string]Parser{
@@ -66,5 +68,5 @@ func main() {
 		report.Results = append(report.Results, result)
 	}
 
-	SaveReport(report)
+	SaveReport(report, *outdirFl)
 }

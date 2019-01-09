@@ -49,21 +49,21 @@ func CloneTckRepo() string {
 }
 
 // SaveReport writes parsing run report as JSON file
-func SaveReport(report *Report) {
-	workDir, err := os.Getwd()
+func SaveReport(report *Report, outdir string) {
+	outdir, err := filepath.Abs(outdir)
 	if err != nil {
 		panic(fmt.Sprintf(
-			"Failed to get current working dir: %s", err.Error()))
+			"Failed to get absolute path to output dir %s: %s",
+			outdir, err.Error()))
 	}
-	repDirPath := filepath.Join(workDir, "..", "reports", "json")
-	err = os.MkdirAll(repDirPath, os.ModePerm)
+	err = os.MkdirAll(outdir, os.ModePerm)
 	if err != nil {
 		panic(fmt.Sprintf(
-			"Failed to create reports dir at %s: %s",
-			repDirPath, err.Error()))
+			"Failed to create output dir at %s: %s",
+			outdir, err.Error()))
 	}
 	repFilePath := filepath.Join(
-		repDirPath, fmt.Sprintf("%s.json", report.Parser))
+		outdir, fmt.Sprintf("%s.json", report.Parser))
 	reportJson, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {
 		panic(fmt.Sprintf(

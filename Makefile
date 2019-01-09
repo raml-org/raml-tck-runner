@@ -1,13 +1,17 @@
 ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 REPORTER_DIR:=$(ROOT_DIR)/html-reporter
+REPORTS_DIR:=$(ROOT_DIR)/reports/json
 JS_RUNNER_DIR:=$(ROOT_DIR)/js
 PY_RUNNER_DIR:=$(ROOT_DIR)/py
 RB_RUNNER_DIR:=$(ROOT_DIR)/rb
 GO_RUNNER_DIR:=$(ROOT_DIR)/go
-GO_PROJECT_BIN:=raml-tck-runner-go
-GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/$(GO_PROJECT_BIN)
+
+GO_PROJECT_NAME:=raml-tck-runner-go
+GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/$(GO_PROJECT_NAME)
+
 PY_ENV:=venv
 VENV_VERSION:=16.2.0
+
 
 .ONESHELL:
 all: clean install report generate-html
@@ -103,9 +107,8 @@ report-rb:
 	ruby main.rb --parser raml-rb
 
 report-go:
-	cd $(GO_RUNNER_DIR)
-	$(GO_PROJECT_BIN) -parser jumpscale
-	$(GO_PROJECT_BIN) -parser go-raml
+	$(GO_PROJECT_NAME) -parser jumpscale -outdir $(REPORTS_DIR)
+	$(GO_PROJECT_NAME) -parser go-raml -outdir $(REPORTS_DIR)
 
 generate-html:
 	cd $(REPORTER_DIR)

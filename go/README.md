@@ -2,7 +2,7 @@
 
 Simple test of few RAML Go parsers. Tests simply try to parse a set of examples and report if parser returned an error.
 
-Running tests produces JSON reports which are saved to `raml-tck-runner/reports/json/<PARSER_NAME>.json`.
+Running tests produces JSON reports.
 
 A fine collection of RAML files can be composed each containing one/few RAML features to test those in isolation.
 
@@ -23,11 +23,8 @@ $ go install
 
 ## Run
 
-Make sure you the command is run from `raml-tck-runner/go`.
-
 ```sh
-$ cd raml-tck-runner/go
-$ raml-tck-runner-go -parser PARSER_NAME
+$ raml-tck-runner-go -parser PARSER_NAME -outdir ./reports/json
 ```
 
 ## Options
@@ -35,12 +32,15 @@ $ raml-tck-runner-go -parser PARSER_NAME
 Help:
 
 ```sh
-$ cd raml-tck-runner/go
 $ raml-tck-runner-go -h
 ```
 
 Parser (defaults to `jumpscale`):
 ```sh
-$ cd raml-tck-runner/go
 $ raml-tck-runner-go -parser jumpscale/go-raml
+```
+
+Output JSON report directory (defaults to `./`):
+```sh
+$ raml-tck-runner-go -parser jumpscale/go-raml -outdir ./reports/json
 ```
