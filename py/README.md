@@ -2,7 +2,7 @@
 
 Simple test of few RAML Python parsers. Tests simply try to parse a set of examples and report if parser returned an error.
 
-Running tests produces JSON reports which are saved to `raml-tck-runner/reports/json/<PARSER_NAME>.json`.
+Running tests produces JSON reports.
 
 A fine collection of RAML files can be composed each containing one/few RAML features to test those in isolation.
 
@@ -22,7 +22,7 @@ $ pip install -e .
 ## Run
 
 ```sh
-$ raml-test-py --parser PARSER_NAME
+$ raml-test-py --parser PARSER_NAME --outdir ./reports/json
 ```
 
 ## Options
@@ -35,4 +35,9 @@ $ raml-test-py -h
 Parser:
 ```sh
 $ raml-test-py --parser ramlfications/pyraml-parser
+```
+
+Output JSON report directory (defaults to `./`):
+```sh
+$ raml-test-py --parser ramlfications --outdir ./reports/json
 ```

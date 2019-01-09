@@ -98,8 +98,8 @@ report-js:
 report-py:
 	cd $(PY_RUNNER_DIR)
 	. $(PY_ENV)/bin/activate
-	raml-test-py --parser ramlfications
-	raml-test-py --parser pyraml-parser
+	raml-test-py --parser ramlfications --outdir $(REPORTS_DIR)
+	raml-test-py --parser pyraml-parser --outdir $(REPORTS_DIR)
 
 report-rb:
 	cd $(RB_RUNNER_DIR)

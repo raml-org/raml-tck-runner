@@ -36,4 +36,4 @@ def main():
             'error': err
         })
 
-    utils.save_report(report)
+    utils.save_report(report, args.outdir)

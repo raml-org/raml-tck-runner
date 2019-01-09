@@ -18,6 +18,10 @@ def parse_args():
             'pyraml-parser',
         ],
         required=True)
+    arg_parser.add_argument(
+        '--outdir', type=str, help='Output directory',
+        default='./',
+        required=False)
     return arg_parser.parse_args()
 
 
@@ -45,13 +49,12 @@ def list_ramls(ex_dir):
     return [os.path.join(ex_dir, fp) for fp in manifest['filePaths']]
 
 
-# Saves report to json file in reports/json folder
-def save_report(report):
-    pyfile_dir = os.path.dirname(os.path.realpath(__file__))
-    reports_dir = os.path.join(pyfile_dir, '..', '..', 'reports', 'json')
-    if not os.path.exists(reports_dir):
-        os.makedirs(reports_dir)
+# Saves report to json file in output folder
+def save_report(report, outdir):
+    outdir = os.path.abspath(outdir)
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
     report_fpath = os.path.join(
-        reports_dir, '{}.json'.format(report['parser']))
+        outdir, '{}.json'.format(report['parser']))
     with open(report_fpath, 'w') as f:
         json.dump(report, f, indent=2)
