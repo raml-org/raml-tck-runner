@@ -24,11 +24,11 @@ function listRamls (foldPath) {
   })
 }
 
-/* Writes JSON report to reports/json folder */
-function saveReport (report) {
-  const fdir = path.join(__dirname, '..', '..', 'reports', 'json')
-  try { fs.mkdirSync(fdir) } catch(e) {}
-  const fpath = path.join(fdir, `${report.parser}.json`)
+/* Writes JSON report to output folder */
+function saveReport (report, outdir) {
+  outdir = path.resolve(outdir)
+  try { fs.mkdirSync(outdir) } catch(e) {}
+  const fpath = path.join(outdir, `${report.parser}.json`)
   fs.writeFileSync(fpath, JSON.stringify(report, null, 2))
 }
 

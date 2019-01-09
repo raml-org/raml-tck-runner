@@ -91,9 +91,9 @@ report: report-js \
 
 report-js:
 	cd $(JS_RUNNER_DIR)
-	node src/index.js --parser raml-1-parser
-	node src/index.js --parser amf-client-js
-	node src/index.js --parser webapi-parser
+	node src/index.js --parser raml-1-parser --outdir $(REPORTS_DIR)
+	node src/index.js --parser amf-client-js --outdir $(REPORTS_DIR)
+	node src/index.js --parser webapi-parser --outdir $(REPORTS_DIR)
 
 report-py:
 	cd $(PY_RUNNER_DIR)

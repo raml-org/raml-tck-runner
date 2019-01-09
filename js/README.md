@@ -2,7 +2,7 @@
 
 Simple test of few RAML JS parsers. Tests simply try to parse a set of examples and report if parser returned an error.
 
-Running tests produces JSON reports which are saved to `raml-tck-runner/reports/json/<PARSER_NAME>.json`.
+Running tests produces JSON reports.
 
 A fine collection of RAML files can be composed each containing one/few RAML features to test those in isolation.
 
@@ -21,7 +21,7 @@ $ npm install .
 ## Run
 
 ```sh
-$ node src/index.js --parser PARSER_NAME
+$ node src/index.js --parser PARSER_NAME --outdir ./reports/json
 ```
 
 ## Options
@@ -29,4 +29,9 @@ $ node src/index.js --parser PARSER_NAME
 Parser:
 ```sh
 $ node src/index.js --parser raml-1-parser/amf-client-js/webapi-parser
+```
+
+Output JSON report directory (defaults to `./`):
+```sh
+$ node src/index.js --parser raml-1-parser --outdir ./reports/json
 ```

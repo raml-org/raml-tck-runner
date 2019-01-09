@@ -40,7 +40,7 @@ async function main () {
     })
   }
 
-  utils.saveReport(report)
+  utils.saveReport(report, argv.outdir || './')
 }
 
 main()

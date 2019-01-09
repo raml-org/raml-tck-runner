@@ -42,5 +42,5 @@ $ raml-tck-runner-go -parser jumpscale/go-raml
 
 Output JSON report directory (defaults to `./`):
 ```sh
-$ raml-tck-runner-go -parser jumpscale/go-raml -outdir ./reports/json
+$ raml-tck-runner-go -parser jumpscale -outdir ./reports/json
 ```
