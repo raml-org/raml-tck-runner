@@ -58,8 +58,7 @@ create-virtualenv:
 	cd $(PY_RUNNER_DIR)
 	mkdir $(PY_ENV)
 	cd $(PY_ENV)
-	wget https://github.com/pypa/virtualenv/archive/$(VENV_VERSION).tar.gz
-	tar xvfz $(VENV_VERSION).tar.gz
+	curl -sL https://github.com/pypa/virtualenv/archive/$(VENV_VERSION).tar.gz | tar xz
 	python virtualenv-$(VENV_VERSION)/virtualenv.py .
 
 install-py: clean-py create-virtualenv
