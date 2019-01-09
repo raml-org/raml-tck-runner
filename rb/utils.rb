@@ -19,6 +19,7 @@ class OptParse
     options = OpenStruct.new
     options.verbose = false
     options.parser = ''
+    options.outdir = './'
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = 'Usage: ruby main.rb [options]'
@@ -32,6 +33,10 @@ class OptParse
 
       opts.on('--parser NAME', parsers, 'Parser to test') do |parser|
         options.parser = parser
+      end
+
+      opts.on('--outdir PATH', 'Output directory') do |outdir|
+        options.outdir = outdir
       end
 
       opts.separator ''
@@ -72,10 +77,10 @@ def list_ramls(ex_dir)
 end
 
 # Saves report to JSON file
-def save_report(report)
-  reports_dir = File.join(__dir__, '..', 'reports', 'json')
-  FileUtils.mkdir_p(reports_dir) unless File.directory?(reports_dir)
-  report_file = File.join(reports_dir, "#{report['parser']}.json")
+def save_report(report, outdir)
+  outdir = File.expand_path(outdir)
+  FileUtils.mkdir_p(outdir) unless File.directory?(outdir)
+  report_file = File.join(outdir, "#{report['parser']}.json")
   File.open(report_file, 'w') do |f|
     f.write(JSON.pretty_generate(report))
   end

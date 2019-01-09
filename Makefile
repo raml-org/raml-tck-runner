@@ -103,8 +103,8 @@ report-py:
 
 report-rb:
 	cd $(RB_RUNNER_DIR)
-	ruby main.rb --parser brujula
-	ruby main.rb --parser raml-rb
+	ruby main.rb --parser brujula --outdir $(REPORTS_DIR)
+	ruby main.rb --parser raml-rb --outdir $(REPORTS_DIR)
 
 report-go:
 	$(GO_PROJECT_NAME) -parser jumpscale -outdir $(REPORTS_DIR)

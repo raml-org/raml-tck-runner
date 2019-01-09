@@ -41,7 +41,7 @@ def main
     report['results'] << result
   end
 
-  save_report(report)
+  save_report(report, options.outdir)
 end
 
 main
