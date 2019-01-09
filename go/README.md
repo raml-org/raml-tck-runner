@@ -14,16 +14,20 @@ NOTE: If file name contains "invalid" parsing of it is expected to fail.
 
 ```sh
 $ git clone git@github.com:raml-org/raml-tck-runner.git
-$ cd raml-tck-runner/go
-$ mkdir -p $GOPATH/src/github.com/raml-org
-$ rm -rf $GOPATH/src/github.com/raml-org/raml-tck-runner-go
-$ ln -s . $GOPATH/src/github.com/raml-org/raml-tck-runner-go
+$ mkdir -p $GOPATH/src/github.com/raml-org/raml-tck-runner-go
+$ cp raml-tck-runner/go/* $GOPATH/src/github.com/raml-org/raml-tck-runner-go
+$ cd $GOPATH/src/github.com/raml-org/raml-tck-runner-go
+$ go get
+$ go install
 ```
 
 ## Run
 
+Make sure you the command is run from `raml-tck-runner/go`.
+
 ```sh
-$ go run *.go -parser PARSER_NAME
+$ cd raml-tck-runner/go
+$ raml-tck-runner-go -parser PARSER_NAME
 ```
 
 ## Options
@@ -31,10 +35,12 @@ $ go run *.go -parser PARSER_NAME
 Help:
 
 ```sh
-$ go run *.go -h
+$ cd raml-tck-runner/go
+$ raml-tck-runner-go -h
 ```
 
 Parser (defaults to `jumpscale`):
 ```sh
-$ go run *.go -parser jumpscale/go-raml
+$ cd raml-tck-runner/go
+$ raml-tck-runner-go -parser jumpscale/go-raml
 ```

@@ -4,9 +4,10 @@ JS_RUNNER_DIR:=$(ROOT_DIR)/js
 PY_RUNNER_DIR:=$(ROOT_DIR)/py
 RB_RUNNER_DIR:=$(ROOT_DIR)/rb
 GO_RUNNER_DIR:=$(ROOT_DIR)/go
-GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/raml-tck-runner-go
+GO_PROJECT_BIN:=raml-tck-runner-go
+GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/$(GO_PROJECT_BIN)
 PY_ENV:=venv
-VENV_VERSION=16.2.0
+VENV_VERSION:=16.2.0
 
 .ONESHELL:
 all: clean install report generate-html
@@ -73,12 +74,11 @@ install-rb:
 	bundle install
 
 install-go:
-	# Link go runner folder to GOPATH so it works like proper Go project
 	mkdir -p $(GO_PROJECT_DIR)
-	rm -rf $(GO_PROJECT_DIR)
-	ln -s $(GO_RUNNER_DIR) $(GO_PROJECT_DIR)
-	cd $(GO_RUNNER_DIR)
+	cp $(GO_RUNNER_DIR)/* $(GO_PROJECT_DIR)
+	cd $(GO_PROJECT_DIR)
 	go get
+	go install
 
 report: report-js \
 		report-py \
@@ -104,8 +104,8 @@ report-rb:
 
 report-go:
 	cd $(GO_RUNNER_DIR)
-	go run *.go -parser jumpscale
-	go run *.go -parser go-raml
+	$(GO_PROJECT_BIN) -parser jumpscale
+	$(GO_PROJECT_BIN) -parser go-raml
 
 generate-html:
 	cd $(REPORTER_DIR)
