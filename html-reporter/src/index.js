@@ -15,7 +15,14 @@ function main () {
     let report = JSON.parse(fs.readFileSync(fullPath))
     interpretReport(report)
     stats.push(composeReportStats(report))
-    renderTemplate(report, 'report', report.parser)
+    renderTemplate(
+      report, 'detailed_report',
+      `${report.parser}_detailed_report`)
+
+    let featuresStats = composeFeaturesStats(report)
+    renderTemplate(
+      featuresStats, 'features_stats',
+      `${report.parser}_features_stats`)
   })
   renderTemplate({stats: stats}, 'index', 'index')
 }
@@ -23,6 +30,7 @@ function main () {
 /*
   * Inverts invalid files parsing results;
   * Composes repo url from relative file path;
+  * Extracts "feature" name from file path;
 */
 function interpretReport (report) {
   const branch = 'rename-cleanup'
@@ -39,6 +47,7 @@ function interpretReport (report) {
     result.file = result.file.startsWith('/')
       ? result.file.slice(1)
       : result.file
+    result.feature = result.file.split('/')[0].trim()
     result.fileUrl = `${repo}/tests/raml-1.0/${result.file}`
   })
 }
@@ -68,6 +77,37 @@ function composeReportStats (report) {
   stats.all.success = invalidSuccess.length + validSuccess.length
 
   return stats
+}
+
+/*
+  Composes single parser features report.
+  It includes features names and number of passed/all valid/invalid
+  files for each parser.
+*/
+function composeFeaturesStats (report) {
+  let frep = {
+    parser: report.parser,
+    stats: []
+  }
+  // Group by feature name
+  let grouped = {}
+  report.results.forEach(result => {
+    if (grouped[result.feature] === undefined) {
+      grouped[result.feature] = []
+    }
+    grouped[result.feature].push(result)
+  })
+  // Compose stats for each feature
+  for (var featureName in grouped) {
+    if (grouped.hasOwnProperty(featureName)) {
+      let stats = composeReportStats({
+        results: grouped[featureName]
+      })
+      stats.feature = featureName
+      frep.stats.push(stats)
+    }
+  }
+  return frep
 }
 
 /* Renders single Mustache template with data and writes it to html file */

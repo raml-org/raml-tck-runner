@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>RAML Parsers Overview</title>
+  <title>Features stats: {{parser}}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./bootstrap.min.css">
 </head>
   <body>
     <div class="container-fluid">
-      <h3>Overview</h3>
+      <h3><a href="index.html">Overview</a> > Features stats: {{parser}}</h3>
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Parser</th>
+            <th>Feature</th>
             <th>Valid Files (passed/all)</th>
             <th>Invalid Files (passed/all)</th>
             <th>Total (passed/all)</th>
-            <th colspan="2"></th>
           </tr>
         </thead>
         <tbody>
           {{#stats}}
             <tr>
-              <td>{{parser}}</td>
+              <td>{{feature}}</td>
               <td>{{valid.success}}/{{valid.total}}</td>
               <td>{{invalid.success}}/{{invalid.total}}</td>
               <td>{{all.success}}/{{all.total}}</td>
-              <td><a href="{{parser}}_detailed_report.html" title="View {{parser}} detailed report">Detailed report</a></td>
-              <td><a href="{{parser}}_features_stats.html" title="View {{parser}} features stats">Features stats</a></td>
             </tr>
           {{/stats}}
         </tbody>
