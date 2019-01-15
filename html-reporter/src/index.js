@@ -33,8 +33,7 @@ function main () {
   * Extracts "feature" name from file path;
 */
 function interpretReport (report) {
-  const branch = 'rename-cleanup'
-  const repo = `https://github.com/raml-org/raml-tck/tree/${branch}`
+  const repo = `https://github.com/raml-org/raml-tck/tree/${report.branch}`
   report.results.forEach(result => {
     result.invalid = shouldFail(result.file)
     if (result.invalid) {

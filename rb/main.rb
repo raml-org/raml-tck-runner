@@ -12,13 +12,15 @@ end
 
 def main
   options = OptParse.parse(ARGV)
-  ex_dir = clone_tck_repo
+  branch = 'rename-cleanup'
+  ex_dir = clone_tck_repo(branch)
   files_list = list_ramls(ex_dir)
 
   report = {
     'parser' => options.parser,
-    'results' => []
-  }
+    'results' => [],
+    'branch' => branch
+   }
 
   error = nil
 

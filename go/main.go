@@ -18,6 +18,7 @@ type FileResult struct {
 type Report struct {
 	Parser  string        `json:"parser"`
 	Results []*FileResult `json:"results"`
+	Branch  string 		  `json:"branch"`
 }
 
 func main() {
@@ -39,7 +40,8 @@ func main() {
 		return
 	}
 
-	examplesFl := CloneTckRepo()
+	branch := "rename-cleanup"
+	examplesFl := CloneTckRepo(branch)
 	fileList, err := ListRamls(examplesFl)
 	if err != nil {
 		fmt.Printf("Failed to list RAML files: %s\n", err)
@@ -49,6 +51,7 @@ func main() {
 	report := &Report{
 		Parser:  *parserFl,
 		Results: []*FileResult{},
+		Branch: branch,
 	}
 
 	for _, fpath := range fileList {

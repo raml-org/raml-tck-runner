@@ -34,13 +34,13 @@ func ListRamls(folderPath string) ([]string, error) {
 }
 
 // CloneTckRepo clones raml-tck repo and returns cloned repo path
-func CloneTckRepo() string {
+func CloneTckRepo(branch string) string {
 	targetDir := fmt.Sprintf("%s/raml-tck", os.TempDir())
 	_ = os.RemoveAll(targetDir)
 	fmt.Printf("Cloning raml-tc repo to %s\n", targetDir)
 	gitRepo := "git@github.com:raml-org/raml-tck.git"
 	cmd := exec.Command(
-		"git", "clone", "-b", "rename-cleanup", gitRepo, targetDir)
+		"git", "clone", "-b", branch, gitRepo, targetDir)
 	err := cmd.Run()
 	if err != nil {
 		panic(fmt.Sprintf("Failed to clone repo %s", gitRepo))

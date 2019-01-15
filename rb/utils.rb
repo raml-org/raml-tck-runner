@@ -54,7 +54,7 @@ class OptParse
 end
 
 # Clones raml-tck repo and returns its tests path
-def clone_tck_repo
+def clone_tck_repo(branch)
   repo_dir = File.join(Dir.tmpdir, 'raml-tck')
   FileUtils.remove_dir(repo_dir) if File.directory?(repo_dir)
   puts "Cloning raml-tck repo to #{repo_dir}"
@@ -62,7 +62,7 @@ def clone_tck_repo
     'git@github.com:raml-org/raml-tck.git',
     '', path: repo_dir
   )
-  repo.checkout('rename-cleanup')
+  repo.checkout(branch)
   repo_dir
 end
 

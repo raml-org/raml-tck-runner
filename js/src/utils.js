@@ -5,13 +5,12 @@ const { execSync } = require('child_process')
 const rimraf = require('rimraf')
 
 /* Clones raml-tck repo and returns tests path */
-function cloneTckRepo () {
+function cloneTckRepo (branch) {
   const repoDir = path.join(os.tmpdir(), 'raml-tck')
   rimraf.sync(repoDir)
   console.log('Cloning raml-tck to', repoDir)
   execSync(
-    'git clone -b rename-cleanup git@github.com:raml-org/raml-tck.git ' +
-    repoDir)
+    `git clone -b ${branch} git@github.com:raml-org/raml-tck.git ${repoDir}`)
   return repoDir
 }
 

@@ -26,7 +26,7 @@ def parse_args():
 
 
 # Clones raml-tck repo
-def clone_tck_repo():
+def clone_tck_repo(branch):
     repo_dir = os.path.join(tempfile.gettempdir(), 'raml-tck')
     if os.path.exists(repo_dir):
         print('Removing existing raml-tck repo directory')
@@ -36,7 +36,8 @@ def clone_tck_repo():
     repo = Repo.init(repo_dir)
     origin = repo.create_remote(
         'origin', 'git@github.com:raml-org/raml-tck.git')
-    origin.fetch('refs/heads/rename-cleanup:refs/heads/origin')
+    origin.fetch(
+        'refs/heads/{}:refs/heads/origin'.format(branch))
     origin.pull(origin.refs[0].remote_head)
     return repo_dir
 
