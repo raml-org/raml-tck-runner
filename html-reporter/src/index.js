@@ -48,7 +48,7 @@ function interpretReport (report) {
       ? result.file.slice(1)
       : result.file
     result.feature = result.file.split('/')[0].trim()
-    result.fileUrl = `${repo}/tests/raml-1.0/${result.file}`
+    result.fileUrl = `${repo}/${result.file}`
   })
 }
 
