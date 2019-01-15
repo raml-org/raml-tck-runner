@@ -45,7 +45,7 @@ func CloneTckRepo() string {
 	if err != nil {
 		panic(fmt.Sprintf("Failed to clone repo %s", gitRepo))
 	}
-	return fmt.Sprintf("%s/tests/raml-1.0", targetDir)
+	return targetDir
 }
 
 // SaveReport writes parsing run report as JSON file

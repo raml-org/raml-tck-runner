@@ -12,7 +12,7 @@ function cloneTckRepo () {
   execSync(
     'git clone -b rename-cleanup git@github.com:raml-org/raml-tck.git ' +
     repoDir)
-  return path.join(repoDir, 'tests', 'raml-1.0')
+  return repoDir
 }
 
 /* Lists raml files in folder */

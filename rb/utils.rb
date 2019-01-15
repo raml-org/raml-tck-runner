@@ -63,7 +63,7 @@ def clone_tck_repo
     '', path: repo_dir
   )
   repo.checkout('rename-cleanup')
-  File.join(repo_dir, 'tests', 'raml-1.0')
+  repo_dir
 end
 
 # Lists RAML files in a folder

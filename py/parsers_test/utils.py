@@ -38,7 +38,7 @@ def clone_tck_repo():
         'origin', 'git@github.com:raml-org/raml-tck.git')
     origin.fetch('refs/heads/rename-cleanup:refs/heads/origin')
     origin.pull(origin.refs[0].remote_head)
-    return os.path.join(repo_dir, 'tests', 'raml-1.0')
+    return repo_dir
 
 
 # Lists RAML files in a folder
