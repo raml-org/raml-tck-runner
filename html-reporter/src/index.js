@@ -47,8 +47,10 @@ function interpretReport (report) {
     result.file = result.file.startsWith('/')
       ? result.file.slice(1)
       : result.file
-    result.feature = result.file.split('/')[0].trim()
     result.fileUrl = `${repo}/${result.file}`
+
+    // Pick first 3 directories names as a feature name
+    result.feature = result.file.split('/').slice(0, 3).join('/')
   })
 }
 
