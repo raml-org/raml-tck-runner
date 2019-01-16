@@ -20,6 +20,7 @@ class OptParse
     options.verbose = false
     options.parser = ''
     options.outdir = './'
+    options.branch = ''
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = 'Usage: ruby main.rb [options]'
@@ -37,6 +38,10 @@ class OptParse
 
       opts.on('--outdir PATH', 'Output directory') do |outdir|
         options.outdir = outdir
+      end
+
+      opts.on('--branch PATH', 'raml-tck branch with RAML files') do |branch|
+        options.branch = branch
       end
 
       opts.separator ''

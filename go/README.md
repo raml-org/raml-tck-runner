@@ -37,10 +37,15 @@ $ raml-tck-runner-go -h
 
 Parser (defaults to `jumpscale`):
 ```sh
-$ raml-tck-runner-go -parser jumpscale/go-raml
+$ raml-tck-runner-go -parser jumpscale/go-raml -branch rename-cleanup
 ```
 
 Output JSON report directory (defaults to `./`):
 ```sh
-$ raml-tck-runner-go -parser jumpscale -outdir ./reports/json
+$ raml-tck-runner-go -parser jumpscale -outdir ./reports/json -branch rename-cleanup
+```
+
+raml-tck branch to load RAML files from:
+```sh
+$ raml-tck-runner-go -parser jumpscale -branch rename-cleanup
 ```

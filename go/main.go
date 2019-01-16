@@ -27,6 +27,8 @@ func main() {
 		"Parser to test. Supported: jumpscale, go-raml.")
 	outdirFl := flag.String(
 		"outdir", "./", "Output report directory path.")
+	branchFl := flag.String(
+		"branch", "", "raml-tck directory to load RAML files from.")
 	flag.Parse()
 
 	parsers := map[string]Parser{
@@ -40,8 +42,7 @@ func main() {
 		return
 	}
 
-	branch := "rename-cleanup"
-	examplesFl := CloneTckRepo(branch)
+	examplesFl := CloneTckRepo(*branchFl)
 	fileList, err := ListRamls(examplesFl)
 	if err != nil {
 		fmt.Printf("Failed to list RAML files: %s\n", err)
@@ -51,7 +52,7 @@ func main() {
 	report := &Report{
 		Parser:  *parserFl,
 		Results: []*FileResult{},
-		Branch: branch,
+		Branch: *branchFl,
 	}
 
 	for _, fpath := range fileList {

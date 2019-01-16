@@ -21,7 +21,7 @@ $ npm install .
 ## Run
 
 ```sh
-$ node src/index.js --parser PARSER_NAME --outdir ./reports/json
+$ node src/index.js --parser PARSER_NAME --outdir ./reports/json --branch rename-cleanup
 ```
 
 ## Options
@@ -33,5 +33,10 @@ $ node src/index.js --parser raml-1-parser/amf-client-js/webapi-parser
 
 Output JSON report directory (defaults to `./`):
 ```sh
-$ node src/index.js --parser raml-1-parser --outdir ./reports/json
+$ node src/index.js --parser raml-1-parser --outdir ./reports/json --branch rename-cleanup
+```
+
+raml-tck branch to load RAML files from:
+```sh
+$ node src/index.js --parser raml-1-parser --branch rename-cleanup
 ```

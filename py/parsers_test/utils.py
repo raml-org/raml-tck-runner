@@ -22,6 +22,10 @@ def parse_args():
         '--outdir', type=str, help='Output directory',
         default='./',
         required=False)
+    arg_parser.add_argument(
+        '--branch', type=str,
+        help='raml-tck branch to load RAML files from',
+        required=True)
     return arg_parser.parse_args()
 
 

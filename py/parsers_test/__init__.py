@@ -13,14 +13,13 @@ PARSERS = {
 def main():
     args = utils.parse_args()
     parser_func = PARSERS[args.parser]
-    branch = 'rename-cleanup'
-    ex_dir = utils.clone_tck_repo(branch)
+    ex_dir = utils.clone_tck_repo(args.branch)
     file_list = utils.list_ramls(ex_dir)
 
     report = {
         'parser': args.parser,
         'results': [],
-        'branch': branch,
+        'branch': args.branch,
     }
 
     for fpath in file_list:
