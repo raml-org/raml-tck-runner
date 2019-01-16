@@ -49,7 +49,8 @@ function interpretReport (report) {
     result.fileUrl = `${repo}/${result.file}`
 
     // Pick first 3 directories names as a feature name
-    result.feature = result.file.split('/').slice(0, 3).join('/')
+    result.feature = path.dirname(result.file)
+      .split('/').slice(0, 3).join('/')
   })
 }
 
@@ -70,18 +71,18 @@ function composeReportStats (report) {
   stats.invalid.total = invalid.length
   stats.invalid.success = invalidSuccess.length
   stats.invalid.successPerc = Math.round(
-    (stats.invalid.success / stats.invalid.total) * 100)
+    (stats.invalid.success / stats.invalid.total) * 100) || 100
 
   const valid = report.results.filter(r => { return !r.invalid })
   const validSuccess = valid.filter(r => { return r.success })
   stats.valid.total = valid.length
   stats.valid.success = validSuccess.length
   stats.valid.successPerc = Math.round(
-    (stats.valid.success / stats.valid.total) * 100)
+    (stats.valid.success / stats.valid.total) * 100) || 100
 
   stats.all.success = invalidSuccess.length + validSuccess.length
   stats.all.successPerc = Math.round(
-    (stats.all.success / stats.all.total) * 100)
+    (stats.all.success / stats.all.total) * 100) || 100
 
   return stats
 }
