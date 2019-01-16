@@ -9,7 +9,6 @@ const PARSERS = {
 }
 
 async function main () {
-  const branch = 'rename-cleanup'
   const argv = parseArgs(process.argv.slice(2))
   const parserFunc = PARSERS[argv.parser]
   if (parserFunc === undefined) {
@@ -17,12 +16,12 @@ async function main () {
     return
   }
 
-  const exDir = utils.cloneTckRepo(branch)
+  const exDir = utils.cloneTckRepo(argv.branch)
   const fileList = utils.listRamls(exDir)
   let report = {
     parser: argv.parser,
     results: [],
-    branch: branch
+    branch: argv.branch
   }
 
   for (let i = 0; i < fileList.length; i++) {
