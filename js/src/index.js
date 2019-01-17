@@ -37,7 +37,7 @@ async function main () {
     report.results.push({
       file: fpath.replace(exDir, ''),
       success: success,
-      error: error ? error.message : error
+      error: error ? error.toString() : error
     })
   }
 
