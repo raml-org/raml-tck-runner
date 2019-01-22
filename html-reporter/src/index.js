@@ -70,21 +70,27 @@ function composeReportStats (report) {
   const invalidSuccess = invalid.filter(r => { return r.success })
   stats.invalid.total = invalid.length
   stats.invalid.success = invalidSuccess.length
-  stats.invalid.successPerc = Math.round(
-    (stats.invalid.success / stats.invalid.total) * 100) || 100
+  stats.invalid.successPerc = calculateSuccessPerc(stats.invalid)
 
   const valid = report.results.filter(r => { return !r.invalid })
   const validSuccess = valid.filter(r => { return r.success })
   stats.valid.total = valid.length
   stats.valid.success = validSuccess.length
-  stats.valid.successPerc = Math.round(
-    (stats.valid.success / stats.valid.total) * 100) || 100
+  stats.valid.successPerc = calculateSuccessPerc(stats.valid)
 
   stats.all.success = invalidSuccess.length + validSuccess.length
-  stats.all.successPerc = Math.round(
-    (stats.all.success / stats.all.total) * 100) || 100
+  stats.all.successPerc = calculateSuccessPerc(stats.all)
 
   return stats
+}
+
+/* Calculates success percentage */
+function calculateSuccessPerc (data) {
+  let successPerc = Math.round((data.success / data.total) * 100)
+  if (isNaN(successPerc)) {
+    successPerc = 100
+  }
+  return successPerc
 }
 
 /*
