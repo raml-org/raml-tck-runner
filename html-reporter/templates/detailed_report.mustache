@@ -16,8 +16,28 @@
   <script type="text/javascript">
     function toggleErrorLog (row) {
       const nextEl = row.nextElementSibling
-      const visible = nextEl.style.display === 'contents'
-      nextEl.style.display = visible ? 'none' : 'contents'
+      const visible = nextEl.style.display === 'table-row'
+      nextEl.style.display = visible ? 'none' : 'table-row'
+    }
+    function toggleSuccessRows (checkbox) {
+      const els = document.getElementsByClassName('success main-row')
+      const display = checkbox.checked ? 'table-row' : 'none'
+      Array.from(els).forEach((el) => {
+        el.style.display = display
+      })
+    }
+    function toggleDangerRows (checkbox) {
+      let els, display
+      if (checkbox.checked) {
+        els = document.getElementsByClassName('danger main-row')
+        display = 'table-row'
+      } else {
+        els = document.getElementsByClassName('danger')
+        display = 'none'
+      }
+      Array.from(els).forEach((el) => {
+        el.style.display = display
+      })
     }
   </script>
 </head>
@@ -28,13 +48,23 @@
         <thead>
           <tr>
             <th>File</th>
-            <th>Success</th>
+            <th>
+              Success <br>
+              <label>
+                Yes
+                <input type="checkbox" checked="true" onchange="toggleSuccessRows(this)">
+              </label>
+              <label>
+                No
+                <input type="checkbox" checked="true" onchange="toggleDangerRows(this)">
+              </label>
+            </th>
           </tr>
         </thead>
         <tbody>
           {{#results}}
             <tr
-              class="{{#success}}success{{/success}}{{^success}}danger{{/success}}"
+              class="{{#success}}success{{/success}}{{^success}}danger{{/success}} main-row"
               {{^success}}onclick="toggleErrorLog(this)" {{/success}}
               {{^success}}title="Click to show/hide error log"{{/success}}
               >
