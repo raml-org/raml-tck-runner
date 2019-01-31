@@ -1,0 +1,29 @@
+version '1.0.0'
+
+apply plugin: 'java'
+apply plugin: "application"
+
+
+mainClassName = "org.raml.runner.TckRunner"
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven {
+        url "https://repository-master.mulesoft.org/nexus/content/repositories/releases"
+    }
+    maven {
+        url "https://jitpack.io"
+    }
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile 'org.raml:webapi-parser_2.12:0.0.1'
+}
+
+task valkyrTest {
+    println "valkyrTest task..."
+    dependsOn test
+}

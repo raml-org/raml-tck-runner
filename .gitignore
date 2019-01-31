@@ -60,5 +60,9 @@ typings/
 # next.js build output
 .next
 
+# Java runner
+.gradle
+java/build/
+
 reports/json/
 reports/html/*.html
