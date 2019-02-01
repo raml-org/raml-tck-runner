@@ -8,7 +8,7 @@ public class Utils {
     return "";
   }
 
-  public static String[] listRamls(String foldPath) {
+  public static String[] listRamls(String folderPath) {
     return new String[]{"a","b","c"};
   }
 

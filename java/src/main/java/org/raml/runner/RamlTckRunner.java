@@ -3,6 +3,8 @@ package org.raml.runner;
 import org.raml.parsers.IParser;
 import org.raml.parsers.WebApiParser;
 import org.raml.parsers.RamlJavaParser;
+import org.raml.utils.Utils;
+
 import picocli.CommandLine;
 import picocli.CommandLine.ParameterException;
 import picocli.CommandLine.Command;
@@ -46,11 +48,35 @@ public class RamlTckRunner implements Runnable {
     System.out.println("Branch: " + branch);      // DEBUG
 
     IParser parser = this.pickParser();
-    try {
-      parser.parse("asd");
-    } catch (Exception ex) {
+    String exDir = Utils.cloneTckRepo(branch);
+    String[] fileList = Utils.listRamls(exDir);
 
+    JSONObject report = new JSONObject();
+    JSONArray results = new JSONArray();
+    report.put("parser", parserName);
+    report.put("branch", branch);
+    report.put("results", results);
+
+    Boolean success;
+    String error;
+    JSONObject result;
+    for (String fpath : fileList) {
+      success = true;
+      error = "";
+      try {
+        parser.parse(fpath);
+      } catch (Exception e) {
+        success = false;
+        error = e.getMessage();
+      }
+      result = new JSONObject();
+      result.put("file", fpath.replaceAll(exDir, ""));
+      result.put("success", success);
+      result.put("error", error);
+      results.put(result);
     }
+
+    Utils.saveReport(report, outdir);
   }
 
   public static void main(String[] args) {
