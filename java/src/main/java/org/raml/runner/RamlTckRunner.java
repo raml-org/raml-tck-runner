@@ -61,19 +61,20 @@ public class RamlTckRunner implements Runnable {
     String error;
     JSONObject result;
     for (String fpath : fileList) {
-      success = true;
-      error = "";
-      try {
-        parser.parse(fpath);
-      } catch (Exception e) {
-        success = false;
-        error = e.getMessage();
-      }
-      result = new JSONObject();
-      result.put("file", fpath.replaceAll(exDir, ""));
-      result.put("success", success);
-      result.put("error", error);
-      results.put(result);
+      System.out.println(fpath);      // DEBUG
+      // success = true;
+      // error = "";
+      // try {
+      //   parser.parse(fpath);
+      // } catch (Exception e) {
+      //   success = false;
+      //   error = e.getMessage();
+      // }
+      // result = new JSONObject();
+      // result.put("file", fpath.replaceAll(exDir, ""));
+      // result.put("success", success);
+      // result.put("error", error);
+      // results.put(result);
     }
 
     Utils.saveReport(report, outdir);
