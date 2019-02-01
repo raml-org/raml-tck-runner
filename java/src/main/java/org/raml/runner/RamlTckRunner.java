@@ -10,8 +10,8 @@ import picocli.CommandLine.ParameterException;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import org.json.JSONObject;
-import org.json.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 
 @Command(name = "raml-tck-runner", mixinStandardHelpOptions = true, version = "1.0.0")
@@ -52,10 +52,9 @@ public class RamlTckRunner implements Runnable {
     String[] fileList = Utils.listRamls(exDir);
 
     JSONObject report = new JSONObject();
-    JSONArray results = new JSONArray();
     report.put("parser", parserName);
     report.put("branch", branch);
-    report.put("results", results);
+    JSONArray results = new JSONArray();
 
     Boolean success;
     String error;
@@ -74,9 +73,10 @@ public class RamlTckRunner implements Runnable {
       // result.put("file", fpath.replaceAll(exDir, ""));
       // result.put("success", success);
       // result.put("error", error);
-      // results.put(result);
+      // results.add(result);
     }
 
+    report.put("results", results);
     Utils.saveReport(report, outdir);
   }
 

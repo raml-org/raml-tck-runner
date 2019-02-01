@@ -1,6 +1,9 @@
 package org.raml.utils;
 
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,7 +13,9 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.util.*;
 import java.io.File;
-
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Utils {
   public static String cloneTckRepo(String branch) {
@@ -28,12 +33,29 @@ public class Utils {
         .call();
     } catch (GitAPIException e) {
       System.out.println("Failed to clone repo: " + e.getMessage());
+      e.printStackTrace();
     }
     return repoDir;
   }
 
   public static String[] listRamls(String folderPath) {
-    return new String[]{"a","b","c"};
+    Path manifest = Paths.get(folderPath, "manifest.json");
+    String manifestPath = manifest.toAbsolutePath().toString();
+    JSONParser parser = new JSONParser();
+    JSONObject manifestJson = new JSONObject();
+    try {
+      manifestJson = (JSONObject) parser.parse(new FileReader(manifestPath));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    String[] filePaths = (String[]) manifestJson.get("filePaths");
+
+
+    return filePaths;
   }
 
   public static void saveReport(JSONObject report, String outdir) {
