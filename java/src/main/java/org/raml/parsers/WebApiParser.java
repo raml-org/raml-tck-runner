@@ -8,9 +8,11 @@ import amf.client.validate.ValidationResult;
 import java.util.concurrent.ExecutionException;
 import java.util.List;
 
+
 // https://github.com/raml-org/webapi-parser
 public class WebApiParser implements IParser {
   public void parse(String fpath) throws InterruptedException, ExecutionException, IllegalArgumentException {
+    // System.out.println(">>>>");  // DEBUG
     final BaseUnit model = Raml10.parse("file://" + fpath).get();
     final ValidationReport report = Raml10.validate(model).get();
     final List<ValidationResult> results = report.results();

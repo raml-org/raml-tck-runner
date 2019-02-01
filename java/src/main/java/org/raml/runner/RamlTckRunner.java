@@ -2,12 +2,14 @@ package org.raml.runner;
 
 import org.raml.parsers.IParser;
 import org.raml.parsers.WebApiParser;
-// import org.raml.parsers.RamlJavaParser;
-
+import org.raml.parsers.RamlJavaParser;
 import picocli.CommandLine;
+import picocli.CommandLine.ParameterException;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 
 @Command(name = "raml-tck-runner", mixinStandardHelpOptions = true, version = "1.0.0")
@@ -21,15 +23,30 @@ public class RamlTckRunner implements Runnable {
   @Option(names = "--branch", description = "raml-tck branch to load RAML files from")
   String branch;
 
-  public void run() {
-    // test
-    System.out.println("Parser: " + parserName);
-    System.out.println("Outdir: " + outdir);
-    System.out.println("Branch: " + branch);
-
+  public IParser pickParser() {
     IParser parser;
+    switch (parserName) {
+      case "webapi-parser":
+        parser = new WebApiParser();
+        break;
+      case "raml-java-parser":
+        parser = new RamlJavaParser();
+        break;
+      default:
+        throw new ParameterException(
+          new CommandLine(this),
+          "Not supported parser: " + parserName);
+    }
+    return parser;
+  }
+
+  public void run() {
+    System.out.println("Parser: " + parserName);  // DEBUG
+    System.out.println("Outdir: " + outdir);      // DEBUG
+    System.out.println("Branch: " + branch);      // DEBUG
+
+    IParser parser = this.pickParser();
     try {
-      parser = new WebApiParser();
       parser.parse("asd");
     } catch (Exception ex) {
 
