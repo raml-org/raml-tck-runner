@@ -23,8 +23,3 @@ dependencies {
     compile 'info.picocli:picocli:3.9.2'
     compile 'org.raml:webapi-parser_2.12:0.0.1'
 }
-
-task valkyrTest {
-    println "valkyrTest task..."
-    dependsOn test
-}

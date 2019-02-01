@@ -9,6 +9,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
+
 @Command(name = "raml-tck-runner", mixinStandardHelpOptions = true, version = "1.0.0")
 public class RamlTckRunner implements Runnable {
   @Option(names = "--parser", description = "name of a parser to run")
@@ -22,7 +23,7 @@ public class RamlTckRunner implements Runnable {
 
   public void run() {
     // test
-    System.out.println("Parse: " + parserName);
+    System.out.println("Parser: " + parserName);
     System.out.println("Outdir: " + outdir);
     System.out.println("Branch: " + branch);
 
