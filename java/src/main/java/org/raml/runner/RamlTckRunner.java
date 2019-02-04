@@ -13,6 +13,8 @@ import picocli.CommandLine.Parameters;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
+import java.util.*;
+
 
 @Command(name = "raml-tck-runner", mixinStandardHelpOptions = true, version = "1.0.0")
 public class RamlTckRunner implements Runnable {
@@ -49,7 +51,7 @@ public class RamlTckRunner implements Runnable {
 
     IParser parser = this.pickParser();
     String exDir = Utils.cloneTckRepo(branch);
-    String[] fileList = Utils.listRamls(exDir);
+    List<String> fileList = Utils.listRamls(exDir);
 
     JSONObject report = new JSONObject();
     report.put("parser", parserName);

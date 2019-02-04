@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+
 public class Utils {
   public static String cloneTckRepo(String branch) {
     Path pathObj = Paths.get(System.getProperty("java.io.tmpdir"), "raml-tck");
@@ -38,7 +39,7 @@ public class Utils {
     return repoDir;
   }
 
-  public static String[] listRamls(String folderPath) {
+  public static List<String> listRamls(String folderPath) {
     Path manifest = Paths.get(folderPath, "manifest.json");
     String manifestPath = manifest.toAbsolutePath().toString();
     JSONParser parser = new JSONParser();
@@ -52,13 +53,18 @@ public class Utils {
     } catch (ParseException e) {
       e.printStackTrace();
     }
-    String[] filePaths = (String[]) manifestJson.get("filePaths");
-
-
+    JSONArray filePathsJson = (JSONArray) manifestJson.get("filePaths");
+    List<String> filePaths = new ArrayList<String>();
+    Path fpath;
+    for (int i = 0; i < filePathsJson.size(); i++) {
+      fpath = Paths.get(folderPath, (String) filePathsJson.get(i));
+      filePaths.add(fpath.toAbsolutePath().toString());
+    }
     return filePaths;
   }
 
   public static void saveReport(JSONObject report, String outdir) {
+
     return;
   }
 }
