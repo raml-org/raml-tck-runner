@@ -45,16 +45,12 @@ public class RamlTckRunner implements Runnable {
   }
 
   public void run() {
-    System.out.println("Parser: " + parserName);  // DEBUG
-    System.out.println("Outdir: " + outdir);      // DEBUG
-    System.out.println("Branch: " + branch);      // DEBUG
-
     IParser parser = this.pickParser();
     String exDir = Utils.cloneTckRepo(branch);
     List<String> fileList = Utils.listRamls(exDir);
 
     JSONObject report = new JSONObject();
-    report.put("parser", parserName);
+    report.put("parser", parserName + "(java)");
     report.put("branch", branch);
     JSONArray results = new JSONArray();
 
@@ -62,20 +58,19 @@ public class RamlTckRunner implements Runnable {
     String error;
     JSONObject result;
     for (String fpath : fileList) {
-      System.out.println(fpath);      // DEBUG
-      // success = true;
-      // error = "";
-      // try {
-      //   parser.parse(fpath);
-      // } catch (Exception e) {
-      //   success = false;
-      //   error = e.getMessage();
-      // }
-      // result = new JSONObject();
-      // result.put("file", fpath.replaceAll(exDir, ""));
-      // result.put("success", success);
-      // result.put("error", error);
-      // results.add(result);
+      success = true;
+      error = "";
+      try {
+        parser.parse(fpath);
+      } catch (Exception e) {
+        success = false;
+        error = e.getMessage();
+      }
+      result = new JSONObject();
+      result.put("file", fpath.replaceAll(exDir, ""));
+      result.put("success", success);
+      result.put("error", error);
+      results.add(result);
     }
 
     report.put("results", results);
