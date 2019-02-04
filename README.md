@@ -54,3 +54,14 @@ To generate only Ruby parsers report:
 $ make clean
 $ make all-rb
 ```
+
+## Java
+Parsers tested:
+* [webapi-parser](https://github.com/raml-org/webapi-parser)
+* [raml-java-parser](https://github.com/raml-org/raml-java-parser)
+
+To generate only Java parsers report:
+```sh
+$ make clean
+$ make all-java
+```

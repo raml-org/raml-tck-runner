@@ -1,16 +1,42 @@
-This folder provides examples of how to use `webapi-parser` in Java projects.
+## About
 
-## Installation
-See [Java installation instructions](../../README.md#java).
+Simple test of few RAML Java parsers. Tests simply try to parse a set of examples and report if parser returned an error.
 
-Build project and install dependencies:
+Running tests produces JSON reports.
+
+A fine collection of RAML files can be composed each containing one/few RAML features to test those in isolation.
+
+Uses [raml-tck](https://github.com/raml-org/raml-tck/tree/master/tests/raml-1.0) as a source of RAML for tests.
+
+NOTE: If file name contains "invalid" parsing of it is expected to fail.
+
+## Install
+
 ```sh
+$ git clone git@github.com:raml-org/raml-tck-runner.git
+$ cd raml-tck-runner/java
 $ ./gradlew build
 ```
 
-## How to run
-In the `./src/main/java` folder you will find examples for each feature (parser, generator, validation, resolution) that shows the library usage from Java code. These examples are used in `co.acme.demo.WebApiParserDemo` class which can be run using Gradle `run` command:
+## Run
 
 ```sh
-$ ./gradlew run
+$ ./gradlew run --args='--parser PARSER_NAME --outdir ./reports/json --branch rename-cleanup'
+```
+
+## Options
+
+Parser:
+```sh
+$ ./gradlew run --args='--parser webapi-parser/raml-java-parser --branch rename-cleanup'
+```
+
+Output JSON report directory (defaults to `./`):
+```sh
+$ ./gradlew run --args='--parser webapi-parser --outdir ../reports/json --branch rename-cleanup'
+```
+
+raml-tck branch to load RAML files from:
+```sh
+$ ./gradlew run --args='--branch rename-cleanup --parser webapi-parser'
 ```
