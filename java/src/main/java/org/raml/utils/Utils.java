@@ -21,6 +21,8 @@ import java.io.IOException;
 
 
 public class Utils {
+
+  // Clones raml-tck repo branch `branch`
   public static String cloneTckRepo(String branch) {
     Path pathObj = Paths.get(System.getProperty("java.io.tmpdir"), "raml-tck");
     String repoDir = pathObj.toAbsolutePath().toString();
@@ -46,6 +48,7 @@ public class Utils {
     return repoDir;
   }
 
+  // Lists RAML files in `folderPath`
   public static List<String> listRamls(String folderPath) {
     Path manifest = Paths.get(folderPath, "manifest.json");
     String manifestPath = manifest.toAbsolutePath().toString();
@@ -70,6 +73,7 @@ public class Utils {
     return filePaths;
   }
 
+  // Saves JSON report as JSON files to the `outdir` directory
   public static void saveReport(JSONObject report, String outdir) {
     String outDirPath = Paths.get(outdir).toAbsolutePath().toString();
     File outDirFile = new File(outDirPath);
