@@ -19,7 +19,7 @@ async function main () {
   const exDir = utils.cloneTckRepo(argv.branch)
   const fileList = utils.listRamls(exDir)
   let report = {
-    parser: argv.parser,
+    parser: argv.parser + '(js)',
     results: [],
     branch: argv.branch
   }

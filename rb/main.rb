@@ -16,7 +16,7 @@ def main
   files_list = list_ramls(ex_dir)
 
   report = {
-    'parser' => options.parser,
+    'parser' => options.parser + '(rb)',
     'results' => [],
     'branch' => options.branch
    }

@@ -17,7 +17,7 @@ def main():
     file_list = utils.list_ramls(ex_dir)
 
     report = {
-        'parser': args.parser,
+        'parser': args.parser + '(py)',
         'results': [],
         'branch': args.branch,
     }

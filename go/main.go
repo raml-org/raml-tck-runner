@@ -50,7 +50,7 @@ func main() {
 	}
 
 	report := &Report{
-		Parser:  *parserFl,
+		Parser:  *parserFl + "(go)",
 		Results: []*FileResult{},
 		Branch: *branchFl,
 	}
