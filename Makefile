@@ -5,6 +5,7 @@ JS_RUNNER_DIR:=$(ROOT_DIR)/js
 PY_RUNNER_DIR:=$(ROOT_DIR)/py
 RB_RUNNER_DIR:=$(ROOT_DIR)/rb
 GO_RUNNER_DIR:=$(ROOT_DIR)/go
+JAVA_RUNNER_DIR:=$(ROOT_DIR)/java
 
 GO_PROJECT_NAME:=raml-tck-runner-go
 GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/$(GO_PROJECT_NAME)
@@ -12,7 +13,7 @@ GO_PROJECT_DIR:=$(GOPATH)/src/github.com/raml-org/$(GO_PROJECT_NAME)
 PY_ENV:=venv
 VENV_VERSION:=16.2.0
 
-# raml-tck branch with manifest.json it its root
+# raml-tck branch with manifest.json in its root
 TCK_BRANCH:=rename-cleanup
 
 
@@ -39,11 +40,17 @@ all-go:	install-html-reporter \
 		report-go \
 		generate-html
 
+all-java: install-html-reporter \
+		  install-java \
+		  report-java \
+		  generate-html
+
 install: install-html-reporter \
 		 install-js \
 		 install-py \
 		 install-rb \
-		 install-go
+		 install-go \
+		 install-java
 
 install-html-reporter:
 	cd $(REPORTER_DIR)
@@ -87,10 +94,15 @@ install-go:
 	go get
 	go install
 
+install-java:
+	cd $(JAVA_RUNNER_DIR)
+	./gradlew build
+
 report: report-js \
 		report-py \
 		report-rb \
-		report-go
+		report-go \
+		report-java
 
 report-js:
 	cd $(JS_RUNNER_DIR)
@@ -112,6 +124,11 @@ report-rb:
 report-go:
 	$(GO_PROJECT_NAME) -parser jumpscale -outdir $(REPORTS_JSON) -branch $(TCK_BRANCH)
 	$(GO_PROJECT_NAME) -parser go-raml -outdir $(REPORTS_JSON) -branch $(TCK_BRANCH)
+
+report-java:
+	cd $(JAVA_RUNNER_DIR)
+	./gradlew run --args='--parser webapi-parser --outdir $(REPORTS_JSON) --branch $(TCK_BRANCH)'
+	./gradlew run --args='--parser raml-java-parser --outdir $(REPORTS_JSON) --branch $(TCK_BRANCH)'
 
 generate-html:
 	cd $(REPORTER_DIR)
