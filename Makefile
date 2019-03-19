@@ -14,7 +14,7 @@ PY_ENV:=venv
 VENV_VERSION:=16.2.0
 
 # raml-tck branch with manifest.json in its root
-TCK_BRANCH:=rename-cleanup
+TCK_BRANCH:=develop
 
 
 .ONESHELL:

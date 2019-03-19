@@ -22,7 +22,7 @@ $ pip install -e .
 ## Run
 
 ```sh
-$ raml-test-py --parser PARSER_NAME --outdir ./reports/json --branch rename-cleanup
+$ raml-test-py --parser PARSER_NAME --outdir ./reports/json --branch develop
 ```
 
 ## Options
@@ -39,10 +39,10 @@ $ raml-test-py --parser ramlfications/pyraml-parser
 
 Output JSON report directory (defaults to `./`):
 ```sh
-$ raml-test-py --parser ramlfications --outdir ./reports/json --branch rename-cleanup
+$ raml-test-py --parser ramlfications --outdir ./reports/json --branch develop
 ```
 
 raml-tck branch to load RAML files from:
 ```sh
-$ raml-test-py --parser ramlfications --branch rename-cleanup
+$ raml-test-py --parser ramlfications --branch develop
 ```

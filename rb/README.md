@@ -33,15 +33,15 @@ $ ruby main.rb -h
 
 Parser:
 ```sh
-$ ruby main.rb --parser brujula/raml-rb --branch rename-cleanup
+$ ruby main.rb --parser brujula/raml-rb --branch develop
 ```
 
 Output JSON report directory (defaults to `./`):
 ```sh
-$ ruby main.rb --parser brujula --outdir ./reports/json --branch rename-cleanup
+$ ruby main.rb --parser brujula --outdir ./reports/json --branch develop
 ```
 
 raml-tck branch to load RAML files from:
 ```sh
-$ ruby main.rb --parser brujula --branch rename-cleanup
+$ ruby main.rb --parser brujula --branch develop
 ```

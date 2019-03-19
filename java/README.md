@@ -21,22 +21,22 @@ $ ./gradlew build
 ## Run
 
 ```sh
-$ ./gradlew run --args='--parser PARSER_NAME --outdir ./reports/json --branch rename-cleanup'
+$ ./gradlew run --args='--parser PARSER_NAME --outdir ./reports/json --branch develop'
 ```
 
 ## Options
 
 Parser:
 ```sh
-$ ./gradlew run --args='--parser webapi-parser/raml-java-parser --branch rename-cleanup'
+$ ./gradlew run --args='--parser webapi-parser/raml-java-parser --branch develop'
 ```
 
 Output JSON report directory (defaults to `./`):
 ```sh
-$ ./gradlew run --args='--parser webapi-parser --outdir ../reports/json --branch rename-cleanup'
+$ ./gradlew run --args='--parser webapi-parser --outdir ../reports/json --branch develop'
 ```
 
 raml-tck branch to load RAML files from:
 ```sh
-$ ./gradlew run --args='--branch rename-cleanup --parser webapi-parser'
+$ ./gradlew run --args='--branch develop --parser webapi-parser'
 ```
