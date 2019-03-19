@@ -18,22 +18,26 @@ async function amfParse (fpath) {
   const model = await ramlParser.parseFileAsync(`file://${fpath}`)
   const report = await amf.AMF.validate(
     model, amf.ProfileNames.RAML10, amf.MessageStyles.RAML)
-  report.results.map(res => {
-    if (!res.conforms && res.level.toLowerCase() === 'violation') {
-      throw new Error(res.message)
-    }
-  })
+  if (!report.conforms) {
+    report.results.map(res => {
+      if (res.level.toLowerCase() === 'violation') {
+        throw new Error(res.message)
+      }
+    })
+  }
 }
 
 // https://github.com/raml-org/webapi-parser
 async function webapiParserParse (fpath) {
   const model = await wap.raml10.parse(`file://${fpath}`)
   const report = await wap.raml10.validate(model)
-  report.results.map(res => {
-    if (!res.conforms && res.level.toLowerCase() === 'violation') {
-      throw new Error(res.message)
-    }
-  })
+  if (!report.conforms) {
+    report.results.map(res => {
+      if (res.level.toLowerCase() === 'violation') {
+        throw new Error(res.message)
+      }
+    })
+  }
 }
 
 module.exports = {
