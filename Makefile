@@ -59,15 +59,6 @@ install-html-reporter:
 install-js: clean-js
 	cd $(JS_RUNNER_DIR)
 	npm install .
-	# IMPORTANT:
-	#
-	# Remove linking when webapi-parser is hosted on NPM and add it
-	# as NPM dependency to js/package.json#dependencies:
-	# 	"webapi-parser": "^0.0.1"
-	#
-	# Meanwhile your webapi-parser project must be at the same level
-	# as raml-tck-runner project.
-	npm link $(ROOT_DIR)/../webapi-parser/js/module/
 
 create-virtualenv:
 	cd $(PY_RUNNER_DIR)
