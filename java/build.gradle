@@ -23,6 +23,6 @@ dependencies {
     compile 'org.eclipse.jgit:org.eclipse.jgit:4.5.0.201609210915-r'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile 'info.picocli:picocli:3.9.2'
-    compile 'org.raml:webapi-parser:0.3.2'
-    compile 'org.raml:raml-parser-2:1.0.41'
+    compile 'org.raml:webapi-parser:0.5.0'
+    compile 'org.raml:raml-parser-2:1.0.48'
 }
