@@ -11,12 +11,29 @@ def parse_with(parser_name, fpath)
 end
 
 def main
+  # Parsers meta-data which helps generating pretty reports.
+  # Required fields are: name, language, url, version.
+  parsers_meta = {
+    'brujula' => {
+      'name' => 'brujula',
+      'language' => 'rb',
+      'url' => 'https://github.com/nogates/brujula',
+      'version' => '0.2.0'
+    },
+    'raml-rb' => {
+      'name' => 'raml-rb',
+      'language' => 'rb',
+      'url' => 'https://github.com/jpb/raml-rb',
+      'version' => '1.2.1'
+    }
+  }
+
   options = OptParse.parse(ARGV)
   ex_dir = clone_tck_repo(options.branch)
   files_list = list_ramls(ex_dir)
 
   report = {
-    'parser' => options.parser + '(rb)',
+    'parser' => parsers_meta[options.parser],
     'results' => [],
     'branch' => options.branch
    }
