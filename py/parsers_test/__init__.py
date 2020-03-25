@@ -9,15 +9,30 @@ PARSERS = {
     'pyraml-parser': parsers.pyraml_parser,
 }
 
+PARSERS_META = {
+    'ramlfications': {
+        'url': 'https://github.com/spotify/ramlfications',
+        'version': '0.1.9',
+    },
+    'pyraml-parser': {
+        'url': 'https://github.com/an2deg/pyraml-parser',
+        'version': '0.1.9',
+    },
+}
+
 
 def main():
     args = utils.parse_args()
     parser_func = PARSERS[args.parser]
     ex_dir = utils.clone_tck_repo(args.branch)
     file_list = utils.list_ramls(ex_dir)
-
+    parser_meta = PARSERS_META[args.parser].copy()
+    parser_meta.update({
+        'language': 'py',
+        'name': args.parser,
+    })
     report = {
-        'parser': args.parser + '(py)',
+        'parser': parser_meta,
         'results': [],
         'branch': args.branch,
     }
