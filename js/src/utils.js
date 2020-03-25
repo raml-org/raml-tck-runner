@@ -27,7 +27,7 @@ function listRamls (foldPath) {
 function saveReport (report, outdir) {
   outdir = path.resolve(outdir)
   try { fs.mkdirSync(outdir) } catch(e) {}
-  const fpath = path.join(outdir, `${report.parser}.json`)
+  const fpath = path.join(outdir, `${report.parser.name}.json`)
   fs.writeFileSync(fpath, JSON.stringify(report, null, 2))
 }
 
