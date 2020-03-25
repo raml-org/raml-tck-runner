@@ -85,7 +85,9 @@ end
 def save_report(report, outdir)
   outdir = File.expand_path(outdir)
   FileUtils.mkdir_p(outdir) unless File.directory?(outdir)
-  report_file = File.join(outdir, "#{report['parser']['name']}.json")
+  report_file = File.join(
+    outdir,
+    "#{report['parser']['name']}_#{report['parser']['language']}.json")
   File.open(report_file, 'w') do |f|
     f.write(JSON.pretty_generate(report))
   end

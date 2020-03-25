@@ -12,6 +12,7 @@ const PARSERS = {
 /**
  * Parsers meta-data which helps generating pretty reports.
  * Required fields are: url, version.
+ * Name and language are used in links creation.
  */
 const PARSERS_META = {
   'raml-1-parser': {

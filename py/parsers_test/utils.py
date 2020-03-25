@@ -60,6 +60,8 @@ def save_report(report, outdir):
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     report_fpath = os.path.join(
-        outdir, '{}.json'.format(report['parser']['name']))
+        outdir, '{}_{}.json'.format(
+            report['parser']['name'],
+            report['parser']['language']))
     with open(report_fpath, 'w') as f:
         json.dump(report, f, indent=2)

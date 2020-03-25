@@ -48,6 +48,7 @@ func main() {
 	/**
 	 * Parsers meta-data which helps generating pretty reports.
 	 * Required fields are: language, name, url, version.
+	 * Name and language are used in links creation.
 	 */
 	parsersMeta := map[string]ParserMeta{
 		"jumpscale": {

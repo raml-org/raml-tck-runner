@@ -63,7 +63,7 @@ func SaveReport(report *Report, outdir string) {
 			outdir, err.Error()))
 	}
 	repFilePath := filepath.Join(
-		outdir, fmt.Sprintf("%s.json", report.Parser.Name))
+		outdir, fmt.Sprintf("%s_%s.json", report.Parser.Name, report.Parser.Language))
 	reportJson, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {
 		panic(fmt.Sprintf(

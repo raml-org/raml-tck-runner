@@ -48,6 +48,7 @@ public class RamlTckRunner implements Runnable {
   /**
    * Parsers meta-data which helps generating pretty reports.
    * Required fields are: name, language, url, version.
+   * Name and language are used in links creation.
    */
   public JSONObject pickParserMeta() {
     JSONObject parserMeta = new JSONObject();

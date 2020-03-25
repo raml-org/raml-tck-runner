@@ -13,6 +13,7 @@ end
 def main
   # Parsers meta-data which helps generating pretty reports.
   # Required fields are: name, language, url, version.
+  # Name and language are used in links creation.
   parsers_meta = {
     'brujula' => {
       'name' => 'brujula',
