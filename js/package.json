@@ -11,10 +11,10 @@
   "author": "MuleSoft",
   "license": "ISC",
   "dependencies": {
-    "amf-client-js": "^4.0.4",
+    "amf-client-js": "^4.0.6",
     "minimist": "^1.2.0",
     "mustache": "^3.0.1",
-    "raml-1-parser": "^1.1.58",
+    "raml-1-parser": "^1.1.63",
     "rimraf": "^2.6.2",
     "webapi-parser": "^0.5.0"
   },
