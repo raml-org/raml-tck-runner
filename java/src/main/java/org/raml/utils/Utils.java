@@ -78,7 +78,8 @@ public class Utils {
     String outDirPath = Paths.get(outdir).toAbsolutePath().toString();
     File outDirFile = new File(outDirPath);
     outDirFile.mkdirs();
-    String fname = ((String) report.get("parser")) + ".json";
+    JSONObject parserMeta = (JSONObject) report.get("parser");
+    String fname = ((String) parserMeta.get("name")) + ".json";
     String outFilePath = Paths.get(outDirPath, fname).toAbsolutePath().toString();
     try (FileWriter file = new FileWriter(outFilePath)) {
       file.write(report.toJSONString());

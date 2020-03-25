@@ -44,13 +44,40 @@ public class RamlTckRunner implements Runnable {
     return parser;
   }
 
+
+  /**
+   * Parsers meta-data which helps generating pretty reports.
+   * Required fields are: name, language, url, version.
+   */
+  public JSONObject pickParserMeta() {
+    JSONObject parserMeta = new JSONObject();
+    parserMeta.put("name", parserName);
+    parserMeta.put("language", "java");
+    switch (parserName) {
+      case "webapi-parser":
+        parserMeta.put("url", "https://github.com/raml-org/webapi-parser");
+        parserMeta.put("version", "0.5.0");
+        break;
+      case "raml-java-parser":
+        parserMeta.put("url", "https://github.com/raml-org/raml-java-parser");
+        parserMeta.put("version", "1.0.48");
+        break;
+      default:
+        throw new ParameterException(
+          new CommandLine(this),
+          "Not supported parser: " + parserName);
+    }
+    return parserMeta;
+  }
+
   public void run() {
     IParser parser = this.pickParser();
+    JSONObject parserMeta = this.pickParserMeta();
     String exDir = Utils.cloneTckRepo(branch);
     List<String> fileList = Utils.listRamls(exDir);
 
     JSONObject report = new JSONObject();
-    report.put("parser", parserName + "(java)");
+    report.put("parser", parserMeta);
     report.put("branch", branch);
     JSONArray results = new JSONArray();
 
