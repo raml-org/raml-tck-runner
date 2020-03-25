@@ -14,11 +14,19 @@ type FileResult struct {
 	Error   string `json:"error"`
 }
 
+// ParserMeta represents a single parser meta-data
+type ParserMeta struct {
+	Language string `json:"language"`
+	Name     string `json:"name"`
+	Url      string `json:"url"`
+	Version  string `json:"version"`
+}
+
 // Report represents a parser parsing results
 type Report struct {
-	Parser  string        `json:"parser"`
+	Parser  ParserMeta    `json:"parser"`
 	Results []*FileResult `json:"results"`
-	Branch  string 		  `json:"branch"`
+	Branch  string        `json:"branch"`
 }
 
 func main() {
@@ -31,12 +39,31 @@ func main() {
 		"branch", "", "raml-tck directory to load RAML files from.")
 	flag.Parse()
 
-	parsers := map[string]Parser{
+	parsersRunners := map[string]Parser{
 		"jumpscale": Jumpscale,
 		"go-raml":   Goraml,
 		"tsaikd":    Tsaikd,
 	}
-	parser, ok := parsers[*parserFl]
+
+	/**
+	 * Parsers meta-data which helps generating pretty reports.
+	 * Required fields are: url, version.
+	 */
+	parsersMeta := map[string]ParserMeta{
+		"jumpscale": {
+			Language: "go",
+			Name:     "jumpscale",
+			Url:      "https://github.com/Jumpscale/go-raml/tree/master/raml",
+			Version:  "0.1",
+		},
+		"go-raml": {
+			Language: "go",
+			Name:     "go-raml",
+			Url:      "https://github.com/go-raml/raml",
+			Version:  "not versioned",
+		},
+	}
+	parser, ok := parsersRunners[*parserFl]
 	if !ok {
 		fmt.Println("Not supported parser. See help (-h).")
 		return
@@ -50,9 +77,9 @@ func main() {
 	}
 
 	report := &Report{
-		Parser:  *parserFl + "(go)",
+		Parser:  parsersMeta[*parserFl],
 		Results: []*FileResult{},
-		Branch: *branchFl,
+		Branch:  *branchFl,
 	}
 
 	for _, fpath := range fileList {
